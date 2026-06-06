@@ -1,0 +1,22 @@
+[
+  "tests/test_pipeline.py::TestBaseline::test_linear_increasing",
+  "tests/test_pipeline.py::TestBaseline::test_ma3",
+  "tests/test_pipeline.py::TestBaseline::test_naive",
+  "tests/test_pipeline.py::TestBaseline::test_seasonal_len",
+  "tests/test_pipeline.py::TestCleaning::test_clipper_reduces_range",
+  "tests/test_pipeline.py::TestCleaning::test_nan_ffill",
+  "tests/test_pipeline.py::TestCleaning::test_nan_median",
+  "tests/test_pipeline.py::TestMetrics::test_mae_known",
+  "tests/test_pipeline.py::TestMetrics::test_mape_10pct",
+  "tests/test_pipeline.py::TestMetrics::test_mape_perfect",
+  "tests/test_pipeline.py::TestMetrics::test_metrics_dict_keys",
+  "tests/test_pipeline.py::TestMetrics::test_rmse_known",
+  "tests/test_pipeline.py::TestMetrics::test_rmse_zero",
+  "tests/test_pipeline.py::TestMetrics::test_smape_nonneg",
+  "tests/test_pipeline.py::TestMonthly::test_lag_no_leakage",
+  "tests/test_pipeline.py::TestMonthly::test_more_features_added",
+  "tests/test_pipeline.py::TestSelection::test_corr_drops_redundant",
+  "tests/test_pipeline.py::TestSelection::test_missing_drops_high_null",
+  "tests/test_pipeline.py::TestSelection::test_psi_stable",
+  "tests/test_pipeline.py::TestSelection::test_psi_unstable"
+]

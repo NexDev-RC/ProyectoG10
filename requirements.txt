@@ -1,0 +1,50 @@
+# ─── Core Data
+pandas>=2.0.0
+numpy>=1.24.0
+scipy>=1.10.0
+
+# ─── Machine Learning
+scikit-learn>=1.3.0
+lightgbm>=4.0.0
+xgboost>=2.0.0
+
+# ─── Time Series
+statsmodels>=0.14.0
+prophet>=1.1.4
+
+# ─── Hyperparameter Tuning
+optuna>=3.4.0
+
+# ─── Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+plotly>=5.17.0
+
+# ─── API
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.4.0
+
+# ─── Dashboard
+streamlit>=1.28.0
+
+# ─── Data Storage & Serialization
+joblib>=1.3.0
+PyYAML>=6.0
+openpyxl>=3.1.0
+pyarrow>=13.0.0
+
+# ─── Pipeline & MLOps
+mlflow>=2.8.0
+
+# ─── Kaggle
+kaggle>=1.5.16
+
+# ─── Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# ─── Utilities
+python-dotenv>=1.0.0
+tqdm>=4.66.0
+loguru>=0.7.0

@@ -1,0 +1,150 @@
+# ══════════════════════════════════════════════════════════════
+#  Olist Revenue Forecast – Configuración Central del Proyecto
+# ══════════════════════════════════════════════════════════════
+
+project:
+  name: "olist_revenue_forecast"
+  version: "1.0.0"
+  description: "Forecast de ingresos mensuales – Olist E-Commerce"
+  target: "monthly_revenue"
+  horizon_months: 3
+  granularity: "monthly"
+
+# ─── Rutas
+paths:
+  data_raw:       "data/raw/"
+  data_processed: "data/processed/"
+  data_models:    "data/models/"
+  logs:           "logs/"
+  mlflow_uri:     "mlruns/"
+
+# ─── Dataset Olist (archivos CSV)
+dataset:
+  source: "local"                          # kaggle | local | drive
+  kaggle_dataset: "olistbr/brazilian-ecommerce"
+  files:
+    orders:         "olist_orders_dataset.csv"
+    order_items:    "olist_order_items_dataset.csv"
+    order_payments: "olist_order_payments_dataset.csv"
+    order_reviews:  "olist_order_reviews_dataset.csv"
+    customers:      "olist_customers_dataset.csv"
+    products:       "olist_products_dataset.csv"
+    sellers:        "olist_sellers_dataset.csv"
+    category_trans: "product_category_name_translation.csv"
+    geolocation:    "olist_geolocation_dataset.csv"
+
+# ─── Paso 2: Splits temporales (según Excel)
+splits:
+  train_end:    "2018-04"    # últimos meses para train
+  val_end:      "2018-07"    # backtest
+  live_month:   "2018-08"    # live
+  predict_month: "2018-09"   # predicción futura
+
+# ─── Paso 3: Feature Engineering
+features:
+  target_feature_count: 60
+  lag_periods:          [1, 2, 3, 6, 12]
+  rolling_windows:      [3, 6]
+  cyclical_encoding:    true
+  top_categories:       15
+
+# ─── Paso 5: Limpieza de Variables
+cleaning:
+  clip_quantile_low:    0.01
+  clip_quantile_high:   0.99
+  nan_fill_strategy:    "median"    # median | mean | forward_fill | zero
+  group_rare_threshold: 0.02        # categorías con < 2% → "other"
+
+# ─── Paso 6: Selección de Variables
+feature_selection:
+  missing_threshold:       0.60     # umbral_missings: con ~20 meses los lags tienen NaN por diseño
+  psi_threshold:           0.25     # PSI > 0.25 = inestable (más permisivo con pocos datos)
+  psi_bins:                5        # bins_PSI reducidos para val pequeño
+  correlation_thresholds:  [0.80, 0.90, 0.95, 0.99]   # exploración
+  correlation_final:       0.95     # umbral_correlacion final
+  univariate_thresholds:   [0.10, 0.20, 0.30]          # exploración
+  univariate_final:        0.10     # umbral_univariante: más permisivo con series cortas
+  wrapper_method:          "rfecv"  # rfecv | rfe
+  wrapper_cv:              3        # CV folds para RFECV
+
+# ─── Paso 7: Hiperparametrización (Optuna)
+optuna:
+  n_trials:       50
+  timeout:        600           # segundos
+  direction:      "minimize"
+  metric:         "rmse"        # rmse | mape
+  cv_splits:      3
+  sampler:        "tpe"         # tpe | random | cmaes
+
+# ─── Modelos
+models:
+  baseline:
+    - naive
+    - moving_average_3m
+    - seasonal_naive
+    - linear_trend
+  candidates:
+    - lightgbm
+    - prophet
+    - sarima
+    - sarimax
+  final_model:    "lightgbm"    # modelo final seleccionado
+
+# ─── LightGBM (espacio de búsqueda Optuna)
+lightgbm:
+  objective:       "regression"
+  metric:          "rmse"
+  n_estimators:    [100, 1000]
+  learning_rate:   [0.01, 0.1]
+  num_leaves:      [15, 63]
+  max_depth:       [3, 8]
+  min_child_samples: [5, 30]
+  subsample:       [0.6, 1.0]
+  colsample_bytree: [0.6, 1.0]
+  reg_alpha:       [0.0, 1.0]
+  reg_lambda:      [0.0, 1.0]
+
+# ─── Prophet
+prophet:
+  seasonality_mode:   "multiplicative"
+  yearly_seasonality: true
+  weekly_seasonality: false
+  daily_seasonality:  false
+  changepoint_prior_scale: [0.001, 0.5]
+  seasonality_prior_scale: [0.01, 10.0]
+
+# ─── SARIMA
+sarima:
+  order:        [1, 1, 1]
+  seasonal_order: [1, 1, 1, 12]
+  auto_arima:   true
+
+# ─── Métricas objetivo
+metrics:
+  target_mape:   10.0          # MAPE < 10%
+  technical:
+    - rmse
+    - mape
+    - mae
+    - smape
+  business:
+    - revenue_total
+    - avg_monthly_revenue
+    - customer_retention_rate
+    - avg_delivery_days
+    - pct_on_time_delivery
+    - avg_review_score
+    - cancellation_rate
+
+# ─── API
+api:
+  host:     "0.0.0.0"
+  port:     8000
+  prefix:   "/api/v1"
+  title:    "Olist Revenue Forecast API"
+  version:  "1.0.0"
+
+# ─── Dashboard
+dashboard:
+  port:     8501
+  title:    "Olist Revenue Forecast Dashboard"
