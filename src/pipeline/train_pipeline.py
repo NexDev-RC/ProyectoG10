@@ -226,6 +226,87 @@ class TrainPipeline:
         save_model(self.forecaster, "lgbm_forecaster", self.cfg)
 
     # ──────────────────────────────────────────────
+    #  Sprint 2: Actualización incremental mensual
+    # ──────────────────────────────────────────────
+    def step_incremental_update(self, new_month_data: pd.DataFrame, update_window: int = 3):
+        """
+        Simula la llegada de un nuevo mes de datos y actualiza el modelo
+        de forma incremental (warm start), sin reentrenar desde cero.
+
+        Flujo:
+          1. Incorpora el nuevo mes y recalcula lags/rolling/cíclicas
+             (simulate_monthly_update).
+          2. Re-aplica el pipeline de limpieza ya ajustado (transform,
+             sin refit) → limpieza, encoding y escalado consistentes.
+          3. Actualiza el modelo LightGBM con una ventana reciente de
+             observaciones (forecaster.update, warm start).
+          4. Recalcula métricas técnicas sobre el backtest actualizado.
+
+        Parámetros
+        ----------
+        new_month_data : DataFrame con el nuevo mes (mismas columnas base
+                          que produce build_monthly_table, p.ej. salida de
+                          add_time_series_features para ese mes o un row
+                          equivalente).
+        update_window  : número de meses recientes (incluyendo el nuevo)
+                          usados para la actualización incremental. LightGBM
+                          no puede continuar el boosting con un único punto
+                          (no hay forma de evaluar una partición), por lo
+                          que se usa una pequeña ventana deslizante de meses
+                          recientes para el warm start.
+
+        Retorna
+        -------
+        dict con las métricas técnicas post-actualización.
+        """
+        from src.data.monthly_agg import split_data, simulate_monthly_update
+
+        logger.info("\n" + "═"*60)
+        logger.info("SPRINT 2: ACTUALIZACIÓN INCREMENTAL MENSUAL")
+        logger.info("═"*60)
+
+        if self.cleaning_pipe is None or self.forecaster is None:
+            raise RuntimeError(
+                "Se requiere un pipeline entrenado (step_clean + step_train_final) "
+                "antes de simular una actualización incremental."
+            )
+
+        target = self.cfg["project"]["target"]
+
+        # 1. Incorporar el nuevo mes y recalcular features temporales
+        self.monthly = simulate_monthly_update(self.monthly, new_month_data, self.cfg)
+
+        # 2. Re-aplicar limpieza (encoding + escalado) ya ajustada, sin refit
+        monthly_clean, _ = clean_monthly_table(
+            self.monthly, self.cfg, fit=False, pipeline=self.cleaning_pipe
+        )
+        self.monthly = monthly_clean
+        self.splits = split_data(self.monthly, self.cfg)
+
+        # 3. Actualización incremental (warm start) con una ventana reciente
+        #    (incluye el nuevo mes); LightGBM requiere >= 2 observaciones
+        #    para poder añadir nuevos splits durante el continue-training.
+        window = monthly_clean.tail(max(update_window, 2))
+        X_new = window[self.selected_features]
+        y_new = window[target]
+        self.forecaster.update(X_new, y_new)
+        save_model(self.forecaster, "lgbm_forecaster", self.cfg)
+
+        # 4. Métricas técnicas post-actualización sobre el backtest disponible
+        backtest = self.splits["backtest"]
+        updated_metrics = {}
+        if len(backtest) > 0:
+            X_bt = backtest[self.selected_features]
+            y_bt = backtest[target].values
+            y_pred = self.forecaster.predict(X_bt)[:len(y_bt)]
+            updated_metrics = compute_technical_metrics(y_bt, y_pred, "LightGBM_incremental")
+            logger.info(f"MAPE post-actualización: {updated_metrics['mape']:.2f}%")
+
+        self.metrics_report["incremental_update"] = updated_metrics
+        logger.info("Actualización incremental completada.")
+        return updated_metrics
+
+    # ──────────────────────────────────────────────
     #  Métricas de negocio
     # ──────────────────────────────────────────────
     def step_business_metrics(self):

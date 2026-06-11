@@ -91,6 +91,70 @@ class LightGBMForecaster:
             preds.append(float(pred[0]))
         return np.array(preds)
 
+    def update(self, X_new: pd.DataFrame, y_new: pd.Series, n_extra_trees: int = 20):
+        """
+        Actualización incremental (warm start) del modelo con datos de un
+        nuevo mes (Sprint 2 – simulación de llegada mensual de datos).
+
+        En lugar de reentrenar desde cero, continúa el boosting de cada
+        modelo de horizonte a partir de sus árboles existentes vía la API
+        nativa `lgb.train(..., init_model=...)`, añadiendo `n_extra_trees`
+        árboles ajustados a la(s) nueva(s) observación(es). Esto es mucho
+        más rápido que `train_final_model` y refleja un escenario realista
+        de actualización mensual.
+
+        Nota: a diferencia del wrapper sklearn (`LGBMRegressor`), la API
+        nativa `lgb.train` no exige un mínimo estricto de filas, pero con
+        un único dato no hay forma de evaluar una partición y el continue
+        training resulta en 0 árboles nuevos (no-op). Se recomienda llamar
+        a `update()` con una pequeña ventana de meses recientes (>= 2 filas)
+        en lugar de una única observación.
+
+        Parámetros
+        ----------
+        X_new         : features del/los nuevo(s) mes(es) (ventana reciente,
+                          idealmente >= 2 filas)
+        y_new         : target real del/los nuevo(s) mes(es)
+        n_extra_trees : número de árboles adicionales por horizonte
+
+        Retorna
+        -------
+        self (modelos actualizados in-place)
+        """
+        import lightgbm as lgb
+
+        X = X_new[self.feature_cols_].fillna(0).values
+        y = y_new.values if hasattr(y_new, "values") else np.asarray(y_new)
+
+        if len(y) == 0:
+            logger.warning("update(): no hay observaciones nuevas, se omite la actualización")
+            return self
+
+        # Parámetros válidos para la API nativa lgb.train (sin n_estimators,
+        # que se controla con num_boost_round).
+        native_params = {k: v for k, v in self.params.items() if k != "n_estimators"}
+        native_params.setdefault("verbosity", -1)
+
+        for h in range(1, self.horizon + 1):
+            prev_model = self.models_.get(h)
+            init_booster = prev_model.booster_ if prev_model is not None else None
+
+            train_set = lgb.Dataset(X, label=y)
+            booster = lgb.train(
+                native_params,
+                train_set,
+                num_boost_round=n_extra_trees,
+                init_model=init_booster,
+            )
+            self.models_[h] = _BoosterModel(booster)
+
+        logger.info(
+            f"LightGBM actualizado incrementalmente con {len(y)} observación(es) nueva(s) "
+            f"(+{n_extra_trees} árboles por horizonte)"
+        )
+        return self
+
+
     def feature_importance(self) -> pd.DataFrame:
         """Importancia de features del modelo del horizonte 1."""
         model = self.models_.get(1)
@@ -100,6 +164,26 @@ class LightGBMForecaster:
             "feature":    self.feature_cols_,
             "importance": model.feature_importances_,
         }).sort_values("importance", ascending=False)
+
+
+class _BoosterModel:
+    """
+    Wrapper ligero sobre `lgb.Booster` para exponer la misma interfaz
+    (.predict(), .booster_, .feature_importances_) que `LGBMRegressor`,
+    de forma que `LightGBMForecaster` pueda usar indistintamente modelos
+    entrenados desde cero o actualizados incrementalmente.
+    """
+
+    def __init__(self, booster):
+        self.booster_ = booster
+
+    def predict(self, X):
+        return self.booster_.predict(np.asarray(X))
+
+    @property
+    def feature_importances_(self):
+        return np.array(self.booster_.feature_importance())
+
 
 
 # ─────────────────────────────────────────────────────────────

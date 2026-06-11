@@ -20,7 +20,7 @@ paths:
 
 # ─── Dataset Olist (archivos CSV)
 dataset:
-  source: "local"                          # kaggle | local | drive
+  source: "kaggle"                          # kaggle | local | drive
   kaggle_dataset: "olistbr/brazilian-ecommerce"
   files:
     orders:         "olist_orders_dataset.csv"
@@ -54,6 +54,7 @@ cleaning:
   clip_quantile_high:   0.99
   nan_fill_strategy:    "median"    # median | mean | forward_fill | zero
   group_rare_threshold: 0.02        # categorías con < 2% → "other"
+  scaling_method:       "standard"  # standard | minmax | none (escalado de numéricas continuas)
 
 # ─── Paso 6: Selección de Variables
 feature_selection:

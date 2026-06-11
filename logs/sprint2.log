@@ -797,3 +797,949 @@ Mejor baseline: MovingAverage_3M (MAPE=7.12%)
 2026-06-06 02:05:14 | INFO | helpers:52 | Modelo guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\models\cleaning_pipeline.pkl
 2026-06-06 02:05:14 | INFO | helpers:74 | DataFrame guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\processed\monthly_features.parquet (20 filas)
 2026-06-06 02:05:14 | INFO | helpers:74 | DataFrame guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\processed\monthly_features.parquet (20 filas)
+2026-06-06 09:11:45 | INFO | loader:99 |   orders              :   99,441 filas x   8 cols
+2026-06-06 09:11:46 | INFO | loader:99 |   order_items         :  112,650 filas x   7 cols
+2026-06-06 09:11:46 | INFO | loader:99 |   order_payments      :  103,886 filas x   5 cols
+2026-06-06 09:11:46 | INFO | loader:99 |   order_reviews       :   99,224 filas x   7 cols
+2026-06-06 09:11:47 | INFO | loader:99 |   customers           :   99,441 filas x   5 cols
+2026-06-06 09:11:47 | INFO | loader:99 |   products            :   32,951 filas x   9 cols
+2026-06-06 09:11:47 | INFO | loader:99 |   sellers             :    3,095 filas x   4 cols
+2026-06-06 09:11:47 | INFO | loader:99 |   category_trans      :       71 filas x   2 cols
+2026-06-06 09:11:48 | INFO | loader:99 |   geolocation         : 1,000,163 filas x   5 cols
+2026-06-06 09:11:48 | INFO | loader:101 | Total datasets cargados: 9
+2026-06-06 09:11:49 | INFO | loader:123 | Rango temporal: 2016-09-04 → 2018-10-17 (25 meses)
+2026-06-06 09:11:51 | INFO | loader:145 | 
+       dataset    rows  cols  null_pct  dup_rows
+        orders   99441     8      0.62         0
+   order_items  112650     7      0.00         0
+order_payments  103886     5      0.00         0
+ order_reviews   99224     7     21.01         0
+     customers   99441     5      0.00         0
+      products   32951     9      0.83         0
+       sellers    3095     4      0.00         0
+category_trans      71     2      0.00         0
+   geolocation 1000163     5      0.00    261831
+2026-06-06 09:12:20 | INFO | master_table:21 | Construyendo Master Table…
+2026-06-06 09:12:22 | INFO | master_table:61 | Master Table base: 119,143 filas x 30 cols
+2026-06-06 09:12:22 | INFO | master_table:71 | Generando features transaccionales…
+2026-06-06 09:12:22 | INFO | master_table:126 | Features transaccionales añadidas: 54 cols totales
+2026-06-06 09:12:22 | INFO | monthly_agg:26 | Construyendo tabla mensual…
+2026-06-06 09:12:22 | INFO | monthly_agg:36 | Órdenes válidas (delivered + payment>0): 96,477
+2026-06-06 09:12:23 | INFO | monthly_agg:69 | Serie mensual: 20 meses  (Dec 2016 → Jul 2018)
+2026-06-06 09:12:23 | INFO | monthly_agg:119 | Features de series temporales añadidas: 44 cols totales
+2026-06-06 09:12:34 | INFO | monthly_agg:154 |   Split train     :  17 meses
+2026-06-06 09:12:34 | INFO | monthly_agg:154 |   Split val       :   3 meses
+2026-06-06 09:12:34 | INFO | monthly_agg:154 |   Split backtest  :   0 meses
+2026-06-06 09:12:34 | INFO | monthly_agg:154 |   Split live      :   0 meses
+2026-06-06 09:12:34 | INFO | monthly_agg:154 |   Split all       :  20 meses
+2026-06-06 09:12:47 | INFO | cleaning:44 | OutlierClipper ajustado en 41 columnas
+2026-06-06 09:12:48 | INFO | cleaning:86 | NaNImputer ajustado (median) en 41 columnas
+2026-06-06 09:12:48 | INFO | cleaning:101 | NaN imputados: 79 → 0
+2026-06-06 09:12:48 | INFO | cleaning:125 | RareCategoryGrouper ajustado en 0 columnas
+2026-06-06 09:12:48 | INFO | cleaning:194 | Limpieza aplicada (fit+transform)
+2026-06-06 09:13:21 | INFO | monthly_agg:154 |   Split train     :  17 meses
+2026-06-06 09:13:21 | INFO | monthly_agg:154 |   Split val       :   3 meses
+2026-06-06 09:13:21 | INFO | monthly_agg:154 |   Split backtest  :   0 meses
+2026-06-06 09:13:21 | INFO | monthly_agg:154 |   Split live      :   0 meses
+2026-06-06 09:13:21 | INFO | monthly_agg:154 |   Split all       :  20 meses
+2026-06-06 09:13:21 | INFO | selection:268 | 
+============================================================
+2026-06-06 09:13:21 | INFO | selection:269 | SELECCIÓN DE VARIABLES – Estado inicial: 41 features
+2026-06-06 09:13:21 | INFO | selection:270 | ============================================================
+2026-06-06 09:13:21 | INFO | selection:97 | Missing: 41 features OK, 0 eliminadas
+2026-06-06 09:13:21 | INFO | selection:79 | PSI: 4 features estables, 37 eliminadas
+2026-06-06 09:13:21 | WARNING | selection:240 | PSI: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-06 09:13:21 | INFO | selection:116 | Correlación (umbral=0.95): 4 features OK, 1 eliminadas
+2026-06-06 09:13:21 | WARNING | selection:240 | Correlación: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-06 09:13:21 | INFO | selection:176 | Univariante (umbral=0.1): 5 features OK, 0 eliminadas
+2026-06-06 09:13:27 | INFO | selection:214 | WRAPPER RFECV: 5 features seleccionadas
+2026-06-06 09:13:27 | INFO | selection:372 | 
+============================================================
+2026-06-06 09:13:27 | INFO | selection:373 | RESUMEN DE SELECCIÓN DE VARIABLES:
+2026-06-06 09:13:27 | INFO | selection:375 |   0_initial: 41 features
+2026-06-06 09:13:27 | INFO | selection:375 |   1_missing: 41 features
+2026-06-06 09:13:27 | INFO | selection:375 |   2_psi: 5 features
+2026-06-06 09:13:27 | INFO | selection:375 |   3_correlation: 5 features
+2026-06-06 09:13:27 | INFO | selection:375 |   4_univariate: 5 features
+2026-06-06 09:13:27 | INFO | selection:375 |   5_wrapper: 5 features
+2026-06-06 09:13:27 | INFO | selection:376 |   → Features finales seleccionadas: 5
+2026-06-06 09:13:27 | INFO | selection:377 | ============================================================
+2026-06-06 09:14:16 | INFO | monthly_agg:154 |   Split train     :  17 meses
+2026-06-06 09:14:16 | INFO | monthly_agg:154 |   Split val       :   3 meses
+2026-06-06 09:14:16 | INFO | monthly_agg:154 |   Split backtest  :   0 meses
+2026-06-06 09:14:16 | INFO | monthly_agg:154 |   Split live      :   0 meses
+2026-06-06 09:14:16 | INFO | monthly_agg:154 |   Split all       :  20 meses
+2026-06-06 09:14:16 | INFO | selection:268 | 
+============================================================
+2026-06-06 09:14:16 | INFO | selection:269 | SELECCIÓN DE VARIABLES – Estado inicial: 41 features
+2026-06-06 09:14:16 | INFO | selection:270 | ============================================================
+2026-06-06 09:14:17 | INFO | selection:97 | Missing: 41 features OK, 0 eliminadas
+2026-06-06 09:14:17 | INFO | selection:79 | PSI: 4 features estables, 37 eliminadas
+2026-06-06 09:14:17 | WARNING | selection:240 | PSI: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-06 09:14:17 | INFO | selection:116 | Correlación (umbral=0.95): 4 features OK, 1 eliminadas
+2026-06-06 09:14:17 | WARNING | selection:240 | Correlación: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-06 09:14:17 | INFO | selection:176 | Univariante (umbral=0.1): 5 features OK, 0 eliminadas
+2026-06-06 09:14:23 | INFO | selection:214 | WRAPPER RFECV: 5 features seleccionadas
+2026-06-06 09:14:23 | INFO | selection:372 | 
+============================================================
+2026-06-06 09:14:23 | INFO | selection:373 | RESUMEN DE SELECCIÓN DE VARIABLES:
+2026-06-06 09:14:23 | INFO | selection:375 |   0_initial: 41 features
+2026-06-06 09:14:23 | INFO | selection:375 |   1_missing: 41 features
+2026-06-06 09:14:23 | INFO | selection:375 |   2_psi: 5 features
+2026-06-06 09:14:23 | INFO | selection:375 |   3_correlation: 5 features
+2026-06-06 09:14:23 | INFO | selection:375 |   4_univariate: 5 features
+2026-06-06 09:14:23 | INFO | selection:375 |   5_wrapper: 5 features
+2026-06-06 09:14:23 | INFO | selection:376 |   → Features finales seleccionadas: 5
+2026-06-06 09:14:23 | INFO | selection:377 | ============================================================
+2026-06-06 09:15:45 | INFO | trainer:95 | Iniciando Optuna (n_trials=20, timeout=120s, metric=rmse)…
+2026-06-06 09:15:50 | INFO | trainer:119 | Mejor RMSE: 460626.2857
+2026-06-06 09:15:50 | INFO | trainer:120 | Mejores parámetros: {'n_estimators': 638, 'learning_rate': 0.0835361075531176, 'num_leaves': 19, 'max_depth': 4, 'min_child_samples': 6, 'subsample': 0.7301321323053057, 'colsample_bytree': 0.7554709158757928, 'reg_alpha': 0.2713490317738959, 'reg_lambda': 0.8287375091519293}
+2026-06-06 09:15:59 | INFO | metrics:51 | [Naive] RMSE=139,874.73  MAE=117,930.31  MAPE=9.05%  sMAPE=8.51%
+2026-06-06 09:15:59 | INFO | metrics:51 | [MovingAverage_3M] RMSE=96,803.98  MAE=95,645.99  MAPE=7.12%  sMAPE=6.96%
+2026-06-06 09:15:59 | INFO | metrics:51 | [SeasonalNaive] RMSE=691,070.88  MAE=686,897.28  MAPE=50.47%  sMAPE=67.69%
+2026-06-06 09:15:59 | INFO | metrics:51 | [LinearTrend] RMSE=423,893.54  MAE=395,532.86  MAPE=29.87%  sMAPE=25.45%
+2026-06-06 09:15:59 | INFO | baseline:114 | 
+Mejor baseline: MovingAverage_3M (MAPE=7.12%)
+2026-06-06 09:15:59 | INFO | baseline:115 | Objetivo final: MAPE < 10%
+2026-06-06 09:16:00 | INFO | forecaster:82 | LightGBM entrenado (3 horizontes)
+2026-06-06 09:16:00 | INFO | trainer:158 | Modelo final entrenado con mejores hiperparámetros
+2026-06-06 09:16:00 | INFO | metrics:51 | [LightGBM_final] RMSE=112,109.04  MAE=102,186.09  MAPE=7.71%  sMAPE=7.96%
+2026-06-06 09:16:27 | INFO | monthly_agg:185 | Simulando actualización mensual de datos…
+2026-06-06 09:16:27 | INFO | monthly_agg:119 | Features de series temporales añadidas: 44 cols totales
+2026-06-06 09:16:27 | INFO | monthly_agg:189 | Tabla actualizada: 21 meses
+2026-06-06 09:18:03 | INFO | metrics:129 | Métricas de negocio calculadas
+2026-06-06 09:18:14 | INFO | helpers:52 | Modelo guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\models\lgbm_forecaster.pkl
+2026-06-06 09:18:14 | INFO | helpers:52 | Modelo guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\models\cleaning_pipeline.pkl
+2026-06-06 09:18:14 | INFO | helpers:74 | DataFrame guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\processed\monthly_features.parquet (20 filas)
+2026-06-06 11:46:17 | INFO | loader:99 |   orders              :   99,441 filas x   8 cols
+2026-06-06 11:46:17 | INFO | loader:99 |   orders              :   99,441 filas x   8 cols
+2026-06-06 11:46:17 | INFO | loader:99 |   order_items         :  112,650 filas x   7 cols
+2026-06-06 11:46:17 | INFO | loader:99 |   order_items         :  112,650 filas x   7 cols
+2026-06-06 11:46:17 | INFO | loader:99 |   order_payments      :  103,886 filas x   5 cols
+2026-06-06 11:46:17 | INFO | loader:99 |   order_payments      :  103,886 filas x   5 cols
+2026-06-06 11:46:18 | INFO | loader:99 |   order_reviews       :   99,224 filas x   7 cols
+2026-06-06 11:46:18 | INFO | loader:99 |   order_reviews       :   99,224 filas x   7 cols
+2026-06-06 11:46:18 | INFO | loader:99 |   customers           :   99,441 filas x   5 cols
+2026-06-06 11:46:18 | INFO | loader:99 |   customers           :   99,441 filas x   5 cols
+2026-06-06 11:46:18 | INFO | loader:99 |   products            :   32,951 filas x   9 cols
+2026-06-06 11:46:18 | INFO | loader:99 |   products            :   32,951 filas x   9 cols
+2026-06-06 11:46:18 | INFO | loader:99 |   sellers             :    3,095 filas x   4 cols
+2026-06-06 11:46:18 | INFO | loader:99 |   sellers             :    3,095 filas x   4 cols
+2026-06-06 11:46:18 | INFO | loader:99 |   category_trans      :       71 filas x   2 cols
+2026-06-06 11:46:18 | INFO | loader:99 |   category_trans      :       71 filas x   2 cols
+2026-06-06 11:46:19 | INFO | loader:99 |   geolocation         : 1,000,163 filas x   5 cols
+2026-06-06 11:46:19 | INFO | loader:99 |   geolocation         : 1,000,163 filas x   5 cols
+2026-06-06 11:46:19 | INFO | loader:101 | Total datasets cargados: 9
+2026-06-06 11:46:19 | INFO | loader:101 | Total datasets cargados: 9
+2026-06-06 11:46:19 | INFO | loader:123 | Rango temporal: 2016-09-04 → 2018-10-17 (25 meses)
+2026-06-06 11:46:19 | INFO | loader:123 | Rango temporal: 2016-09-04 → 2018-10-17 (25 meses)
+2026-06-06 11:46:20 | INFO | loader:145 | 
+       dataset    rows  cols  null_pct  dup_rows
+        orders   99441     8      0.62         0
+   order_items  112650     7      0.00         0
+order_payments  103886     5      0.00         0
+ order_reviews   99224     7     21.01         0
+     customers   99441     5      0.00         0
+      products   32951     9      0.83         0
+       sellers    3095     4      0.00         0
+category_trans      71     2      0.00         0
+   geolocation 1000163     5      0.00    261831
+2026-06-06 11:46:20 | INFO | loader:145 | 
+       dataset    rows  cols  null_pct  dup_rows
+        orders   99441     8      0.62         0
+   order_items  112650     7      0.00         0
+order_payments  103886     5      0.00         0
+ order_reviews   99224     7     21.01         0
+     customers   99441     5      0.00         0
+      products   32951     9      0.83         0
+       sellers    3095     4      0.00         0
+category_trans      71     2      0.00         0
+   geolocation 1000163     5      0.00    261831
+2026-06-06 11:46:35 | INFO | master_table:21 | Construyendo Master Table…
+2026-06-06 11:46:35 | INFO | master_table:21 | Construyendo Master Table…
+2026-06-06 11:46:36 | INFO | master_table:61 | Master Table base: 119,143 filas x 30 cols
+2026-06-06 11:46:36 | INFO | master_table:61 | Master Table base: 119,143 filas x 30 cols
+2026-06-06 11:46:36 | INFO | master_table:71 | Generando features transaccionales…
+2026-06-06 11:46:36 | INFO | master_table:71 | Generando features transaccionales…
+2026-06-06 11:46:36 | INFO | master_table:126 | Features transaccionales añadidas: 54 cols totales
+2026-06-06 11:46:36 | INFO | master_table:126 | Features transaccionales añadidas: 54 cols totales
+2026-06-06 11:46:36 | INFO | monthly_agg:26 | Construyendo tabla mensual…
+2026-06-06 11:46:36 | INFO | monthly_agg:26 | Construyendo tabla mensual…
+2026-06-06 11:46:37 | INFO | monthly_agg:36 | Órdenes válidas (delivered + payment>0): 96,477
+2026-06-06 11:46:37 | INFO | monthly_agg:36 | Órdenes válidas (delivered + payment>0): 96,477
+2026-06-06 11:46:37 | INFO | monthly_agg:69 | Serie mensual: 20 meses  (Dec 2016 → Jul 2018)
+2026-06-06 11:46:37 | INFO | monthly_agg:69 | Serie mensual: 20 meses  (Dec 2016 → Jul 2018)
+2026-06-06 11:46:37 | INFO | monthly_agg:119 | Features de series temporales añadidas: 44 cols totales
+2026-06-06 11:46:37 | INFO | monthly_agg:119 | Features de series temporales añadidas: 44 cols totales
+2026-06-06 11:46:44 | INFO | monthly_agg:154 |   Split train     :  17 meses
+2026-06-06 11:46:44 | INFO | monthly_agg:154 |   Split train     :  17 meses
+2026-06-06 11:46:44 | INFO | monthly_agg:154 |   Split val       :   3 meses
+2026-06-06 11:46:44 | INFO | monthly_agg:154 |   Split val       :   3 meses
+2026-06-06 11:46:44 | INFO | monthly_agg:154 |   Split backtest  :   0 meses
+2026-06-06 11:46:44 | INFO | monthly_agg:154 |   Split backtest  :   0 meses
+2026-06-06 11:46:44 | INFO | monthly_agg:154 |   Split live      :   0 meses
+2026-06-06 11:46:44 | INFO | monthly_agg:154 |   Split live      :   0 meses
+2026-06-06 11:46:44 | INFO | monthly_agg:154 |   Split all       :  20 meses
+2026-06-06 11:46:44 | INFO | monthly_agg:154 |   Split all       :  20 meses
+2026-06-06 11:46:55 | INFO | cleaning:44 | OutlierClipper ajustado en 41 columnas
+2026-06-06 11:46:55 | INFO | cleaning:44 | OutlierClipper ajustado en 41 columnas
+2026-06-06 11:46:55 | INFO | cleaning:86 | NaNImputer ajustado (median) en 41 columnas
+2026-06-06 11:46:55 | INFO | cleaning:86 | NaNImputer ajustado (median) en 41 columnas
+2026-06-06 11:46:55 | INFO | cleaning:101 | NaN imputados: 79 → 0
+2026-06-06 11:46:55 | INFO | cleaning:101 | NaN imputados: 79 → 0
+2026-06-06 11:46:55 | INFO | cleaning:125 | RareCategoryGrouper ajustado en 0 columnas
+2026-06-06 11:46:55 | INFO | cleaning:125 | RareCategoryGrouper ajustado en 0 columnas
+2026-06-06 11:46:55 | INFO | cleaning:194 | Limpieza aplicada (fit+transform)
+2026-06-06 11:46:55 | INFO | cleaning:194 | Limpieza aplicada (fit+transform)
+2026-06-06 11:47:20 | INFO | monthly_agg:154 |   Split train     :  17 meses
+2026-06-06 11:47:20 | INFO | monthly_agg:154 |   Split train     :  17 meses
+2026-06-06 11:47:20 | INFO | monthly_agg:154 |   Split val       :   3 meses
+2026-06-06 11:47:20 | INFO | monthly_agg:154 |   Split val       :   3 meses
+2026-06-06 11:47:20 | INFO | monthly_agg:154 |   Split backtest  :   0 meses
+2026-06-06 11:47:20 | INFO | monthly_agg:154 |   Split backtest  :   0 meses
+2026-06-06 11:47:20 | INFO | monthly_agg:154 |   Split live      :   0 meses
+2026-06-06 11:47:20 | INFO | monthly_agg:154 |   Split live      :   0 meses
+2026-06-06 11:47:20 | INFO | monthly_agg:154 |   Split all       :  20 meses
+2026-06-06 11:47:20 | INFO | monthly_agg:154 |   Split all       :  20 meses
+2026-06-06 11:47:20 | INFO | selection:268 | 
+============================================================
+2026-06-06 11:47:20 | INFO | selection:268 | 
+============================================================
+2026-06-06 11:47:20 | INFO | selection:269 | SELECCIÓN DE VARIABLES – Estado inicial: 41 features
+2026-06-06 11:47:20 | INFO | selection:269 | SELECCIÓN DE VARIABLES – Estado inicial: 41 features
+2026-06-06 11:47:20 | INFO | selection:270 | ============================================================
+2026-06-06 11:47:20 | INFO | selection:270 | ============================================================
+2026-06-06 11:47:20 | INFO | selection:97 | Missing: 41 features OK, 0 eliminadas
+2026-06-06 11:47:20 | INFO | selection:97 | Missing: 41 features OK, 0 eliminadas
+2026-06-06 11:47:20 | INFO | selection:79 | PSI: 4 features estables, 37 eliminadas
+2026-06-06 11:47:20 | INFO | selection:79 | PSI: 4 features estables, 37 eliminadas
+2026-06-06 11:47:20 | WARNING | selection:240 | PSI: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-06 11:47:20 | WARNING | selection:240 | PSI: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-06 11:47:20 | INFO | selection:116 | Correlación (umbral=0.95): 4 features OK, 1 eliminadas
+2026-06-06 11:47:20 | INFO | selection:116 | Correlación (umbral=0.95): 4 features OK, 1 eliminadas
+2026-06-06 11:47:20 | WARNING | selection:240 | Correlación: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-06 11:47:20 | WARNING | selection:240 | Correlación: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-06 11:47:20 | INFO | selection:176 | Univariante (umbral=0.1): 5 features OK, 0 eliminadas
+2026-06-06 11:47:20 | INFO | selection:176 | Univariante (umbral=0.1): 5 features OK, 0 eliminadas
+2026-06-06 11:47:24 | INFO | selection:214 | WRAPPER RFECV: 5 features seleccionadas
+2026-06-06 11:47:24 | INFO | selection:214 | WRAPPER RFECV: 5 features seleccionadas
+2026-06-06 11:47:24 | INFO | selection:372 | 
+============================================================
+2026-06-06 11:47:24 | INFO | selection:372 | 
+============================================================
+2026-06-06 11:47:24 | INFO | selection:373 | RESUMEN DE SELECCIÓN DE VARIABLES:
+2026-06-06 11:47:24 | INFO | selection:373 | RESUMEN DE SELECCIÓN DE VARIABLES:
+2026-06-06 11:47:24 | INFO | selection:375 |   0_initial: 41 features
+2026-06-06 11:47:24 | INFO | selection:375 |   0_initial: 41 features
+2026-06-06 11:47:24 | INFO | selection:375 |   1_missing: 41 features
+2026-06-06 11:47:24 | INFO | selection:375 |   1_missing: 41 features
+2026-06-06 11:47:24 | INFO | selection:375 |   2_psi: 5 features
+2026-06-06 11:47:24 | INFO | selection:375 |   2_psi: 5 features
+2026-06-06 11:47:24 | INFO | selection:375 |   3_correlation: 5 features
+2026-06-06 11:47:24 | INFO | selection:375 |   3_correlation: 5 features
+2026-06-06 11:47:24 | INFO | selection:375 |   4_univariate: 5 features
+2026-06-06 11:47:24 | INFO | selection:375 |   4_univariate: 5 features
+2026-06-06 11:47:24 | INFO | selection:375 |   5_wrapper: 5 features
+2026-06-06 11:47:24 | INFO | selection:375 |   5_wrapper: 5 features
+2026-06-06 11:47:24 | INFO | selection:376 |   → Features finales seleccionadas: 5
+2026-06-06 11:47:24 | INFO | selection:376 |   → Features finales seleccionadas: 5
+2026-06-06 11:47:24 | INFO | selection:377 | ============================================================
+2026-06-06 11:47:24 | INFO | selection:377 | ============================================================
+2026-06-06 11:47:52 | INFO | trainer:95 | Iniciando Optuna (n_trials=20, timeout=120s, metric=rmse)…
+2026-06-06 11:47:52 | INFO | trainer:95 | Iniciando Optuna (n_trials=20, timeout=120s, metric=rmse)…
+2026-06-06 11:47:53 | INFO | trainer:119 | Mejor RMSE: 460626.2857
+2026-06-06 11:47:53 | INFO | trainer:119 | Mejor RMSE: 460626.2857
+2026-06-06 11:47:53 | INFO | trainer:120 | Mejores parámetros: {'n_estimators': 638, 'learning_rate': 0.0835361075531176, 'num_leaves': 19, 'max_depth': 4, 'min_child_samples': 6, 'subsample': 0.7301321323053057, 'colsample_bytree': 0.7554709158757928, 'reg_alpha': 0.2713490317738959, 'reg_lambda': 0.8287375091519293}
+2026-06-06 11:47:53 | INFO | trainer:120 | Mejores parámetros: {'n_estimators': 638, 'learning_rate': 0.0835361075531176, 'num_leaves': 19, 'max_depth': 4, 'min_child_samples': 6, 'subsample': 0.7301321323053057, 'colsample_bytree': 0.7554709158757928, 'reg_alpha': 0.2713490317738959, 'reg_lambda': 0.8287375091519293}
+2026-06-10 15:35:07 | INFO | loader:42 | Dataset ya descargado, usando caché local.
+2026-06-10 15:35:07 | INFO | loader:42 | Dataset ya descargado, usando caché local.
+2026-06-10 15:35:07 | INFO | loader:99 |   orders              :   99,441 filas x   8 cols
+2026-06-10 15:35:07 | INFO | loader:99 |   orders              :   99,441 filas x   8 cols
+2026-06-10 15:35:08 | INFO | loader:99 |   order_items         :  112,650 filas x   7 cols
+2026-06-10 15:35:08 | INFO | loader:99 |   order_items         :  112,650 filas x   7 cols
+2026-06-10 15:35:08 | INFO | loader:99 |   order_payments      :  103,886 filas x   5 cols
+2026-06-10 15:35:08 | INFO | loader:99 |   order_payments      :  103,886 filas x   5 cols
+2026-06-10 15:35:08 | INFO | loader:99 |   order_reviews       :   99,224 filas x   7 cols
+2026-06-10 15:35:08 | INFO | loader:99 |   order_reviews       :   99,224 filas x   7 cols
+2026-06-10 15:35:08 | INFO | loader:99 |   customers           :   99,441 filas x   5 cols
+2026-06-10 15:35:08 | INFO | loader:99 |   customers           :   99,441 filas x   5 cols
+2026-06-10 15:35:08 | INFO | loader:99 |   products            :   32,951 filas x   9 cols
+2026-06-10 15:35:08 | INFO | loader:99 |   products            :   32,951 filas x   9 cols
+2026-06-10 15:35:08 | INFO | loader:99 |   sellers             :    3,095 filas x   4 cols
+2026-06-10 15:35:08 | INFO | loader:99 |   sellers             :    3,095 filas x   4 cols
+2026-06-10 15:35:08 | INFO | loader:99 |   category_trans      :       71 filas x   2 cols
+2026-06-10 15:35:08 | INFO | loader:99 |   category_trans      :       71 filas x   2 cols
+2026-06-10 15:35:09 | INFO | loader:99 |   geolocation         : 1,000,163 filas x   5 cols
+2026-06-10 15:35:09 | INFO | loader:99 |   geolocation         : 1,000,163 filas x   5 cols
+2026-06-10 15:35:09 | INFO | loader:101 | Total datasets cargados: 9
+2026-06-10 15:35:09 | INFO | loader:101 | Total datasets cargados: 9
+2026-06-10 15:35:09 | INFO | loader:123 | Rango temporal: 2016-09-04 → 2018-10-17 (25 meses)
+2026-06-10 15:35:09 | INFO | loader:123 | Rango temporal: 2016-09-04 → 2018-10-17 (25 meses)
+2026-06-10 15:35:10 | INFO | loader:145 | 
+       dataset    rows  cols  null_pct  dup_rows
+        orders   99441     8      0.62         0
+   order_items  112650     7      0.00         0
+order_payments  103886     5      0.00         0
+ order_reviews   99224     7     21.01         0
+     customers   99441     5      0.00         0
+      products   32951     9      0.83         0
+       sellers    3095     4      0.00         0
+category_trans      71     2      0.00         0
+   geolocation 1000163     5      0.00    261831
+2026-06-10 15:35:10 | INFO | loader:145 | 
+       dataset    rows  cols  null_pct  dup_rows
+        orders   99441     8      0.62         0
+   order_items  112650     7      0.00         0
+order_payments  103886     5      0.00         0
+ order_reviews   99224     7     21.01         0
+     customers   99441     5      0.00         0
+      products   32951     9      0.83         0
+       sellers    3095     4      0.00         0
+category_trans      71     2      0.00         0
+   geolocation 1000163     5      0.00    261831
+2026-06-10 15:35:27 | INFO | loader:42 | Dataset ya descargado, usando caché local.
+2026-06-10 15:35:27 | INFO | loader:42 | Dataset ya descargado, usando caché local.
+2026-06-10 15:35:27 | INFO | loader:42 | Dataset ya descargado, usando caché local.
+2026-06-10 15:35:28 | INFO | loader:99 |   orders              :   99,441 filas x   8 cols
+2026-06-10 15:35:28 | INFO | loader:99 |   orders              :   99,441 filas x   8 cols
+2026-06-10 15:35:28 | INFO | loader:99 |   orders              :   99,441 filas x   8 cols
+2026-06-10 15:35:28 | INFO | loader:99 |   order_items         :  112,650 filas x   7 cols
+2026-06-10 15:35:28 | INFO | loader:99 |   order_items         :  112,650 filas x   7 cols
+2026-06-10 15:35:28 | INFO | loader:99 |   order_items         :  112,650 filas x   7 cols
+2026-06-10 15:35:28 | INFO | loader:99 |   order_payments      :  103,886 filas x   5 cols
+2026-06-10 15:35:28 | INFO | loader:99 |   order_payments      :  103,886 filas x   5 cols
+2026-06-10 15:35:28 | INFO | loader:99 |   order_payments      :  103,886 filas x   5 cols
+2026-06-10 15:35:29 | INFO | loader:99 |   order_reviews       :   99,224 filas x   7 cols
+2026-06-10 15:35:29 | INFO | loader:99 |   order_reviews       :   99,224 filas x   7 cols
+2026-06-10 15:35:29 | INFO | loader:99 |   order_reviews       :   99,224 filas x   7 cols
+2026-06-10 15:35:29 | INFO | loader:99 |   customers           :   99,441 filas x   5 cols
+2026-06-10 15:35:29 | INFO | loader:99 |   customers           :   99,441 filas x   5 cols
+2026-06-10 15:35:29 | INFO | loader:99 |   customers           :   99,441 filas x   5 cols
+2026-06-10 15:35:29 | INFO | loader:99 |   products            :   32,951 filas x   9 cols
+2026-06-10 15:35:29 | INFO | loader:99 |   products            :   32,951 filas x   9 cols
+2026-06-10 15:35:29 | INFO | loader:99 |   products            :   32,951 filas x   9 cols
+2026-06-10 15:35:29 | INFO | loader:99 |   sellers             :    3,095 filas x   4 cols
+2026-06-10 15:35:29 | INFO | loader:99 |   sellers             :    3,095 filas x   4 cols
+2026-06-10 15:35:29 | INFO | loader:99 |   sellers             :    3,095 filas x   4 cols
+2026-06-10 15:35:29 | INFO | loader:99 |   category_trans      :       71 filas x   2 cols
+2026-06-10 15:35:29 | INFO | loader:99 |   category_trans      :       71 filas x   2 cols
+2026-06-10 15:35:29 | INFO | loader:99 |   category_trans      :       71 filas x   2 cols
+2026-06-10 15:35:30 | INFO | loader:99 |   geolocation         : 1,000,163 filas x   5 cols
+2026-06-10 15:35:30 | INFO | loader:99 |   geolocation         : 1,000,163 filas x   5 cols
+2026-06-10 15:35:30 | INFO | loader:99 |   geolocation         : 1,000,163 filas x   5 cols
+2026-06-10 15:35:30 | INFO | loader:101 | Total datasets cargados: 9
+2026-06-10 15:35:30 | INFO | loader:101 | Total datasets cargados: 9
+2026-06-10 15:35:30 | INFO | loader:101 | Total datasets cargados: 9
+2026-06-10 15:35:30 | INFO | loader:123 | Rango temporal: 2016-09-04 → 2018-10-17 (25 meses)
+2026-06-10 15:35:30 | INFO | loader:123 | Rango temporal: 2016-09-04 → 2018-10-17 (25 meses)
+2026-06-10 15:35:30 | INFO | loader:123 | Rango temporal: 2016-09-04 → 2018-10-17 (25 meses)
+2026-06-10 15:35:31 | INFO | loader:145 | 
+       dataset    rows  cols  null_pct  dup_rows
+        orders   99441     8      0.62         0
+   order_items  112650     7      0.00         0
+order_payments  103886     5      0.00         0
+ order_reviews   99224     7     21.01         0
+     customers   99441     5      0.00         0
+      products   32951     9      0.83         0
+       sellers    3095     4      0.00         0
+category_trans      71     2      0.00         0
+   geolocation 1000163     5      0.00    261831
+2026-06-10 15:35:31 | INFO | loader:145 | 
+       dataset    rows  cols  null_pct  dup_rows
+        orders   99441     8      0.62         0
+   order_items  112650     7      0.00         0
+order_payments  103886     5      0.00         0
+ order_reviews   99224     7     21.01         0
+     customers   99441     5      0.00         0
+      products   32951     9      0.83         0
+       sellers    3095     4      0.00         0
+category_trans      71     2      0.00         0
+   geolocation 1000163     5      0.00    261831
+2026-06-10 15:35:31 | INFO | loader:145 | 
+       dataset    rows  cols  null_pct  dup_rows
+        orders   99441     8      0.62         0
+   order_items  112650     7      0.00         0
+order_payments  103886     5      0.00         0
+ order_reviews   99224     7     21.01         0
+     customers   99441     5      0.00         0
+      products   32951     9      0.83         0
+       sellers    3095     4      0.00         0
+category_trans      71     2      0.00         0
+   geolocation 1000163     5      0.00    261831
+2026-06-10 15:35:40 | INFO | master_table:21 | Construyendo Master Table…
+2026-06-10 15:35:40 | INFO | master_table:21 | Construyendo Master Table…
+2026-06-10 15:35:40 | INFO | master_table:21 | Construyendo Master Table…
+2026-06-10 15:35:41 | INFO | master_table:61 | Master Table base: 119,143 filas x 30 cols
+2026-06-10 15:35:41 | INFO | master_table:61 | Master Table base: 119,143 filas x 30 cols
+2026-06-10 15:35:41 | INFO | master_table:61 | Master Table base: 119,143 filas x 30 cols
+2026-06-10 15:35:41 | INFO | master_table:71 | Generando features transaccionales…
+2026-06-10 15:35:41 | INFO | master_table:71 | Generando features transaccionales…
+2026-06-10 15:35:41 | INFO | master_table:71 | Generando features transaccionales…
+2026-06-10 15:35:41 | INFO | master_table:126 | Features transaccionales añadidas: 54 cols totales
+2026-06-10 15:35:41 | INFO | master_table:126 | Features transaccionales añadidas: 54 cols totales
+2026-06-10 15:35:41 | INFO | master_table:126 | Features transaccionales añadidas: 54 cols totales
+2026-06-10 15:35:41 | INFO | monthly_agg:26 | Construyendo tabla mensual…
+2026-06-10 15:35:41 | INFO | monthly_agg:26 | Construyendo tabla mensual…
+2026-06-10 15:35:41 | INFO | monthly_agg:26 | Construyendo tabla mensual…
+2026-06-10 15:35:41 | INFO | monthly_agg:36 | Órdenes válidas (delivered + payment>0): 96,477
+2026-06-10 15:35:41 | INFO | monthly_agg:36 | Órdenes válidas (delivered + payment>0): 96,477
+2026-06-10 15:35:41 | INFO | monthly_agg:36 | Órdenes válidas (delivered + payment>0): 96,477
+2026-06-10 15:35:41 | INFO | monthly_agg:69 | Serie mensual: 20 meses  (Dec 2016 → Jul 2018)
+2026-06-10 15:35:41 | INFO | monthly_agg:69 | Serie mensual: 20 meses  (Dec 2016 → Jul 2018)
+2026-06-10 15:35:41 | INFO | monthly_agg:69 | Serie mensual: 20 meses  (Dec 2016 → Jul 2018)
+2026-06-10 15:35:42 | INFO | monthly_agg:119 | Features de series temporales añadidas: 44 cols totales
+2026-06-10 15:35:42 | INFO | monthly_agg:119 | Features de series temporales añadidas: 44 cols totales
+2026-06-10 15:35:42 | INFO | monthly_agg:119 | Features de series temporales añadidas: 44 cols totales
+2026-06-10 15:35:48 | INFO | monthly_agg:154 |   Split train     :  17 meses
+2026-06-10 15:35:48 | INFO | monthly_agg:154 |   Split train     :  17 meses
+2026-06-10 15:35:48 | INFO | monthly_agg:154 |   Split train     :  17 meses
+2026-06-10 15:35:48 | INFO | monthly_agg:154 |   Split val       :   3 meses
+2026-06-10 15:35:48 | INFO | monthly_agg:154 |   Split val       :   3 meses
+2026-06-10 15:35:48 | INFO | monthly_agg:154 |   Split val       :   3 meses
+2026-06-10 15:35:48 | INFO | monthly_agg:154 |   Split backtest  :   0 meses
+2026-06-10 15:35:48 | INFO | monthly_agg:154 |   Split backtest  :   0 meses
+2026-06-10 15:35:48 | INFO | monthly_agg:154 |   Split backtest  :   0 meses
+2026-06-10 15:35:48 | INFO | monthly_agg:154 |   Split live      :   0 meses
+2026-06-10 15:35:48 | INFO | monthly_agg:154 |   Split live      :   0 meses
+2026-06-10 15:35:48 | INFO | monthly_agg:154 |   Split live      :   0 meses
+2026-06-10 15:35:48 | INFO | monthly_agg:154 |   Split all       :  20 meses
+2026-06-10 15:35:48 | INFO | monthly_agg:154 |   Split all       :  20 meses
+2026-06-10 15:35:48 | INFO | monthly_agg:154 |   Split all       :  20 meses
+2026-06-10 15:35:56 | INFO | cleaning:47 | OutlierClipper ajustado en 41 columnas
+2026-06-10 15:35:56 | INFO | cleaning:47 | OutlierClipper ajustado en 41 columnas
+2026-06-10 15:35:56 | INFO | cleaning:47 | OutlierClipper ajustado en 41 columnas
+2026-06-10 15:35:56 | INFO | cleaning:89 | NaNImputer ajustado (median) en 41 columnas
+2026-06-10 15:35:56 | INFO | cleaning:89 | NaNImputer ajustado (median) en 41 columnas
+2026-06-10 15:35:56 | INFO | cleaning:89 | NaNImputer ajustado (median) en 41 columnas
+2026-06-10 15:35:56 | INFO | cleaning:104 | NaN imputados: 79 → 0
+2026-06-10 15:35:56 | INFO | cleaning:104 | NaN imputados: 79 → 0
+2026-06-10 15:35:56 | INFO | cleaning:104 | NaN imputados: 79 → 0
+2026-06-10 15:35:56 | INFO | cleaning:128 | RareCategoryGrouper ajustado en 0 columnas
+2026-06-10 15:35:56 | INFO | cleaning:128 | RareCategoryGrouper ajustado en 0 columnas
+2026-06-10 15:35:56 | INFO | cleaning:128 | RareCategoryGrouper ajustado en 0 columnas
+2026-06-10 15:35:56 | INFO | cleaning:170 | CategoricalEncoder ajustado en 0 columnas categóricas
+2026-06-10 15:35:56 | INFO | cleaning:170 | CategoricalEncoder ajustado en 0 columnas categóricas
+2026-06-10 15:35:56 | INFO | cleaning:170 | CategoricalEncoder ajustado en 0 columnas categóricas
+2026-06-10 15:35:56 | INFO | cleaning:232 | FeatureScaler (standard) ajustado en 39 columnas
+2026-06-10 15:35:56 | INFO | cleaning:232 | FeatureScaler (standard) ajustado en 39 columnas
+2026-06-10 15:35:56 | INFO | cleaning:232 | FeatureScaler (standard) ajustado en 39 columnas
+2026-06-10 15:35:56 | INFO | cleaning:305 | Limpieza aplicada (fit+transform)
+2026-06-10 15:35:56 | INFO | cleaning:305 | Limpieza aplicada (fit+transform)
+2026-06-10 15:35:56 | INFO | cleaning:305 | Limpieza aplicada (fit+transform)
+2026-06-10 15:36:01 | INFO | monthly_agg:154 |   Split train     :  17 meses
+2026-06-10 15:36:01 | INFO | monthly_agg:154 |   Split train     :  17 meses
+2026-06-10 15:36:01 | INFO | monthly_agg:154 |   Split train     :  17 meses
+2026-06-10 15:36:01 | INFO | monthly_agg:154 |   Split val       :   3 meses
+2026-06-10 15:36:01 | INFO | monthly_agg:154 |   Split val       :   3 meses
+2026-06-10 15:36:01 | INFO | monthly_agg:154 |   Split val       :   3 meses
+2026-06-10 15:36:01 | INFO | monthly_agg:154 |   Split backtest  :   0 meses
+2026-06-10 15:36:01 | INFO | monthly_agg:154 |   Split backtest  :   0 meses
+2026-06-10 15:36:01 | INFO | monthly_agg:154 |   Split backtest  :   0 meses
+2026-06-10 15:36:01 | INFO | monthly_agg:154 |   Split live      :   0 meses
+2026-06-10 15:36:01 | INFO | monthly_agg:154 |   Split live      :   0 meses
+2026-06-10 15:36:01 | INFO | monthly_agg:154 |   Split live      :   0 meses
+2026-06-10 15:36:01 | INFO | monthly_agg:154 |   Split all       :  20 meses
+2026-06-10 15:36:01 | INFO | monthly_agg:154 |   Split all       :  20 meses
+2026-06-10 15:36:01 | INFO | monthly_agg:154 |   Split all       :  20 meses
+2026-06-10 15:36:01 | INFO | selection:268 | 
+============================================================
+2026-06-10 15:36:01 | INFO | selection:268 | 
+============================================================
+2026-06-10 15:36:01 | INFO | selection:268 | 
+============================================================
+2026-06-10 15:36:01 | INFO | selection:269 | SELECCIÓN DE VARIABLES – Estado inicial: 41 features
+2026-06-10 15:36:01 | INFO | selection:269 | SELECCIÓN DE VARIABLES – Estado inicial: 41 features
+2026-06-10 15:36:01 | INFO | selection:269 | SELECCIÓN DE VARIABLES – Estado inicial: 41 features
+2026-06-10 15:36:01 | INFO | selection:270 | ============================================================
+2026-06-10 15:36:01 | INFO | selection:270 | ============================================================
+2026-06-10 15:36:01 | INFO | selection:270 | ============================================================
+2026-06-10 15:36:01 | INFO | selection:97 | Missing: 41 features OK, 0 eliminadas
+2026-06-10 15:36:01 | INFO | selection:97 | Missing: 41 features OK, 0 eliminadas
+2026-06-10 15:36:01 | INFO | selection:97 | Missing: 41 features OK, 0 eliminadas
+2026-06-10 15:36:01 | INFO | selection:79 | PSI: 4 features estables, 37 eliminadas
+2026-06-10 15:36:01 | INFO | selection:79 | PSI: 4 features estables, 37 eliminadas
+2026-06-10 15:36:01 | INFO | selection:79 | PSI: 4 features estables, 37 eliminadas
+2026-06-10 15:36:01 | WARNING | selection:240 | PSI: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-10 15:36:01 | WARNING | selection:240 | PSI: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-10 15:36:01 | WARNING | selection:240 | PSI: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-10 15:36:01 | INFO | selection:116 | Correlación (umbral=0.95): 4 features OK, 1 eliminadas
+2026-06-10 15:36:01 | INFO | selection:116 | Correlación (umbral=0.95): 4 features OK, 1 eliminadas
+2026-06-10 15:36:01 | INFO | selection:116 | Correlación (umbral=0.95): 4 features OK, 1 eliminadas
+2026-06-10 15:36:01 | WARNING | selection:240 | Correlación: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-10 15:36:01 | WARNING | selection:240 | Correlación: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-10 15:36:01 | WARNING | selection:240 | Correlación: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-10 15:36:01 | INFO | selection:176 | Univariante (umbral=0.1): 5 features OK, 0 eliminadas
+2026-06-10 15:36:01 | INFO | selection:176 | Univariante (umbral=0.1): 5 features OK, 0 eliminadas
+2026-06-10 15:36:01 | INFO | selection:176 | Univariante (umbral=0.1): 5 features OK, 0 eliminadas
+2026-06-10 15:36:05 | INFO | selection:214 | WRAPPER RFECV: 3 features seleccionadas
+2026-06-10 15:36:05 | INFO | selection:214 | WRAPPER RFECV: 3 features seleccionadas
+2026-06-10 15:36:05 | INFO | selection:214 | WRAPPER RFECV: 3 features seleccionadas
+2026-06-10 15:36:05 | WARNING | selection:240 | Wrapper: propuesta dejó 3 features (< 5), se retienen 5
+2026-06-10 15:36:05 | WARNING | selection:240 | Wrapper: propuesta dejó 3 features (< 5), se retienen 5
+2026-06-10 15:36:05 | WARNING | selection:240 | Wrapper: propuesta dejó 3 features (< 5), se retienen 5
+2026-06-10 15:36:05 | INFO | selection:372 | 
+============================================================
+2026-06-10 15:36:05 | INFO | selection:372 | 
+============================================================
+2026-06-10 15:36:05 | INFO | selection:372 | 
+============================================================
+2026-06-10 15:36:05 | INFO | selection:373 | RESUMEN DE SELECCIÓN DE VARIABLES:
+2026-06-10 15:36:05 | INFO | selection:373 | RESUMEN DE SELECCIÓN DE VARIABLES:
+2026-06-10 15:36:05 | INFO | selection:373 | RESUMEN DE SELECCIÓN DE VARIABLES:
+2026-06-10 15:36:05 | INFO | selection:375 |   0_initial: 41 features
+2026-06-10 15:36:05 | INFO | selection:375 |   0_initial: 41 features
+2026-06-10 15:36:05 | INFO | selection:375 |   0_initial: 41 features
+2026-06-10 15:36:05 | INFO | selection:375 |   1_missing: 41 features
+2026-06-10 15:36:05 | INFO | selection:375 |   1_missing: 41 features
+2026-06-10 15:36:05 | INFO | selection:375 |   1_missing: 41 features
+2026-06-10 15:36:05 | INFO | selection:375 |   2_psi: 5 features
+2026-06-10 15:36:05 | INFO | selection:375 |   2_psi: 5 features
+2026-06-10 15:36:05 | INFO | selection:375 |   2_psi: 5 features
+2026-06-10 15:36:05 | INFO | selection:375 |   3_correlation: 5 features
+2026-06-10 15:36:05 | INFO | selection:375 |   3_correlation: 5 features
+2026-06-10 15:36:05 | INFO | selection:375 |   3_correlation: 5 features
+2026-06-10 15:36:05 | INFO | selection:375 |   4_univariate: 5 features
+2026-06-10 15:36:05 | INFO | selection:375 |   4_univariate: 5 features
+2026-06-10 15:36:05 | INFO | selection:375 |   4_univariate: 5 features
+2026-06-10 15:36:05 | INFO | selection:375 |   5_wrapper: 5 features
+2026-06-10 15:36:05 | INFO | selection:375 |   5_wrapper: 5 features
+2026-06-10 15:36:05 | INFO | selection:375 |   5_wrapper: 5 features
+2026-06-10 15:36:05 | INFO | selection:376 |   → Features finales seleccionadas: 5
+2026-06-10 15:36:05 | INFO | selection:376 |   → Features finales seleccionadas: 5
+2026-06-10 15:36:05 | INFO | selection:376 |   → Features finales seleccionadas: 5
+2026-06-10 15:36:05 | INFO | selection:377 | ============================================================
+2026-06-10 15:36:05 | INFO | selection:377 | ============================================================
+2026-06-10 15:36:05 | INFO | selection:377 | ============================================================
+2026-06-10 15:36:19 | INFO | trainer:95 | Iniciando Optuna (n_trials=20, timeout=120s, metric=rmse)…
+2026-06-10 15:36:19 | INFO | trainer:95 | Iniciando Optuna (n_trials=20, timeout=120s, metric=rmse)…
+2026-06-10 15:36:19 | INFO | trainer:95 | Iniciando Optuna (n_trials=20, timeout=120s, metric=rmse)…
+2026-06-10 15:36:22 | INFO | trainer:119 | Mejor RMSE: 460626.3732
+2026-06-10 15:36:22 | INFO | trainer:119 | Mejor RMSE: 460626.3732
+2026-06-10 15:36:22 | INFO | trainer:119 | Mejor RMSE: 460626.3732
+2026-06-10 15:36:22 | INFO | trainer:120 | Mejores parámetros: {'n_estimators': 638, 'learning_rate': 0.0835361075531176, 'num_leaves': 19, 'max_depth': 4, 'min_child_samples': 6, 'subsample': 0.7301321323053057, 'colsample_bytree': 0.7554709158757928, 'reg_alpha': 0.2713490317738959, 'reg_lambda': 0.8287375091519293}
+2026-06-10 15:36:22 | INFO | trainer:120 | Mejores parámetros: {'n_estimators': 638, 'learning_rate': 0.0835361075531176, 'num_leaves': 19, 'max_depth': 4, 'min_child_samples': 6, 'subsample': 0.7301321323053057, 'colsample_bytree': 0.7554709158757928, 'reg_alpha': 0.2713490317738959, 'reg_lambda': 0.8287375091519293}
+2026-06-10 15:36:22 | INFO | trainer:120 | Mejores parámetros: {'n_estimators': 638, 'learning_rate': 0.0835361075531176, 'num_leaves': 19, 'max_depth': 4, 'min_child_samples': 6, 'subsample': 0.7301321323053057, 'colsample_bytree': 0.7554709158757928, 'reg_alpha': 0.2713490317738959, 'reg_lambda': 0.8287375091519293}
+2026-06-10 15:36:32 | INFO | metrics:51 | [Naive] RMSE=139,874.73  MAE=117,930.31  MAPE=9.05%  sMAPE=8.51%
+2026-06-10 15:36:32 | INFO | metrics:51 | [Naive] RMSE=139,874.73  MAE=117,930.31  MAPE=9.05%  sMAPE=8.51%
+2026-06-10 15:36:32 | INFO | metrics:51 | [Naive] RMSE=139,874.73  MAE=117,930.31  MAPE=9.05%  sMAPE=8.51%
+2026-06-10 15:36:32 | INFO | metrics:51 | [MovingAverage_3M] RMSE=96,803.98  MAE=95,645.99  MAPE=7.12%  sMAPE=6.96%
+2026-06-10 15:36:32 | INFO | metrics:51 | [MovingAverage_3M] RMSE=96,803.98  MAE=95,645.99  MAPE=7.12%  sMAPE=6.96%
+2026-06-10 15:36:32 | INFO | metrics:51 | [MovingAverage_3M] RMSE=96,803.98  MAE=95,645.99  MAPE=7.12%  sMAPE=6.96%
+2026-06-10 15:36:32 | INFO | metrics:51 | [SeasonalNaive] RMSE=691,070.88  MAE=686,897.28  MAPE=50.47%  sMAPE=67.69%
+2026-06-10 15:36:32 | INFO | metrics:51 | [SeasonalNaive] RMSE=691,070.88  MAE=686,897.28  MAPE=50.47%  sMAPE=67.69%
+2026-06-10 15:36:32 | INFO | metrics:51 | [SeasonalNaive] RMSE=691,070.88  MAE=686,897.28  MAPE=50.47%  sMAPE=67.69%
+2026-06-10 15:36:32 | INFO | metrics:51 | [LinearTrend] RMSE=423,893.54  MAE=395,532.86  MAPE=29.87%  sMAPE=25.45%
+2026-06-10 15:36:32 | INFO | metrics:51 | [LinearTrend] RMSE=423,893.54  MAE=395,532.86  MAPE=29.87%  sMAPE=25.45%
+2026-06-10 15:36:32 | INFO | metrics:51 | [LinearTrend] RMSE=423,893.54  MAE=395,532.86  MAPE=29.87%  sMAPE=25.45%
+2026-06-10 15:36:32 | INFO | baseline:114 | 
+Mejor baseline: MovingAverage_3M (MAPE=7.12%)
+2026-06-10 15:36:32 | INFO | baseline:114 | 
+Mejor baseline: MovingAverage_3M (MAPE=7.12%)
+2026-06-10 15:36:32 | INFO | baseline:114 | 
+Mejor baseline: MovingAverage_3M (MAPE=7.12%)
+2026-06-10 15:36:32 | INFO | baseline:115 | Objetivo final: MAPE < 10%
+2026-06-10 15:36:32 | INFO | baseline:115 | Objetivo final: MAPE < 10%
+2026-06-10 15:36:32 | INFO | baseline:115 | Objetivo final: MAPE < 10%
+2026-06-10 15:36:32 | INFO | forecaster:82 | LightGBM entrenado (3 horizontes)
+2026-06-10 15:36:32 | INFO | forecaster:82 | LightGBM entrenado (3 horizontes)
+2026-06-10 15:36:32 | INFO | forecaster:82 | LightGBM entrenado (3 horizontes)
+2026-06-10 15:36:32 | INFO | trainer:158 | Modelo final entrenado con mejores hiperparámetros
+2026-06-10 15:36:32 | INFO | trainer:158 | Modelo final entrenado con mejores hiperparámetros
+2026-06-10 15:36:32 | INFO | trainer:158 | Modelo final entrenado con mejores hiperparámetros
+2026-06-10 15:36:32 | INFO | metrics:51 | [LightGBM_final] RMSE=118,807.46  MAE=95,849.83  MAPE=6.80%  sMAPE=6.94%
+2026-06-10 15:36:32 | INFO | metrics:51 | [LightGBM_final] RMSE=118,807.46  MAE=95,849.83  MAPE=6.80%  sMAPE=6.94%
+2026-06-10 15:36:32 | INFO | metrics:51 | [LightGBM_final] RMSE=118,807.46  MAE=95,849.83  MAPE=6.80%  sMAPE=6.94%
+2026-06-10 15:36:52 | INFO | monthly_agg:185 | Simulando actualización mensual de datos…
+2026-06-10 15:36:52 | INFO | monthly_agg:185 | Simulando actualización mensual de datos…
+2026-06-10 15:36:52 | INFO | monthly_agg:185 | Simulando actualización mensual de datos…
+2026-06-10 15:36:52 | INFO | monthly_agg:119 | Features de series temporales añadidas: 44 cols totales
+2026-06-10 15:36:52 | INFO | monthly_agg:119 | Features de series temporales añadidas: 44 cols totales
+2026-06-10 15:36:52 | INFO | monthly_agg:119 | Features de series temporales añadidas: 44 cols totales
+2026-06-10 15:36:52 | INFO | monthly_agg:189 | Tabla actualizada: 21 meses
+2026-06-10 15:36:52 | INFO | monthly_agg:189 | Tabla actualizada: 21 meses
+2026-06-10 15:36:52 | INFO | monthly_agg:189 | Tabla actualizada: 21 meses
+2026-06-10 15:37:04 | INFO | monthly_agg:185 | Simulando actualización mensual de datos…
+2026-06-10 15:37:04 | INFO | monthly_agg:185 | Simulando actualización mensual de datos…
+2026-06-10 15:37:04 | INFO | monthly_agg:185 | Simulando actualización mensual de datos…
+2026-06-10 15:37:04 | INFO | monthly_agg:119 | Features de series temporales añadidas: 44 cols totales
+2026-06-10 15:37:04 | INFO | monthly_agg:119 | Features de series temporales añadidas: 44 cols totales
+2026-06-10 15:37:04 | INFO | monthly_agg:119 | Features de series temporales añadidas: 44 cols totales
+2026-06-10 15:37:04 | INFO | monthly_agg:189 | Tabla actualizada: 21 meses
+2026-06-10 15:37:04 | INFO | monthly_agg:189 | Tabla actualizada: 21 meses
+2026-06-10 15:37:04 | INFO | monthly_agg:189 | Tabla actualizada: 21 meses
+2026-06-10 15:37:13 | INFO | metrics:129 | Métricas de negocio calculadas
+2026-06-10 15:37:13 | INFO | metrics:129 | Métricas de negocio calculadas
+2026-06-10 15:37:13 | INFO | metrics:129 | Métricas de negocio calculadas
+2026-06-10 15:37:18 | INFO | helpers:52 | Modelo guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\models\lgbm_forecaster.pkl
+2026-06-10 15:37:18 | INFO | helpers:52 | Modelo guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\models\lgbm_forecaster.pkl
+2026-06-10 15:37:18 | INFO | helpers:52 | Modelo guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\models\lgbm_forecaster.pkl
+2026-06-10 15:37:18 | INFO | helpers:52 | Modelo guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\models\cleaning_pipeline.pkl
+2026-06-10 15:37:18 | INFO | helpers:52 | Modelo guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\models\cleaning_pipeline.pkl
+2026-06-10 15:37:18 | INFO | helpers:52 | Modelo guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\models\cleaning_pipeline.pkl
+2026-06-10 15:37:18 | INFO | helpers:74 | DataFrame guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\processed\monthly_features.parquet (20 filas)
+2026-06-10 15:37:18 | INFO | helpers:74 | DataFrame guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\processed\monthly_features.parquet (20 filas)
+2026-06-10 15:37:18 | INFO | helpers:74 | DataFrame guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\processed\monthly_features.parquet (20 filas)
+2026-06-10 15:39:03 | INFO | loader:42 | Dataset ya descargado, usando caché local.
+2026-06-10 15:39:03 | INFO | loader:42 | Dataset ya descargado, usando caché local.
+2026-06-10 15:39:03 | INFO | loader:42 | Dataset ya descargado, usando caché local.
+2026-06-10 15:39:03 | INFO | loader:42 | Dataset ya descargado, usando caché local.
+2026-06-10 15:39:03 | INFO | loader:99 |   orders              :   99,441 filas x   8 cols
+2026-06-10 15:39:03 | INFO | loader:99 |   orders              :   99,441 filas x   8 cols
+2026-06-10 15:39:03 | INFO | loader:99 |   orders              :   99,441 filas x   8 cols
+2026-06-10 15:39:03 | INFO | loader:99 |   orders              :   99,441 filas x   8 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   order_items         :  112,650 filas x   7 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   order_items         :  112,650 filas x   7 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   order_items         :  112,650 filas x   7 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   order_items         :  112,650 filas x   7 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   order_payments      :  103,886 filas x   5 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   order_payments      :  103,886 filas x   5 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   order_payments      :  103,886 filas x   5 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   order_payments      :  103,886 filas x   5 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   order_reviews       :   99,224 filas x   7 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   order_reviews       :   99,224 filas x   7 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   order_reviews       :   99,224 filas x   7 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   order_reviews       :   99,224 filas x   7 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   customers           :   99,441 filas x   5 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   customers           :   99,441 filas x   5 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   customers           :   99,441 filas x   5 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   customers           :   99,441 filas x   5 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   products            :   32,951 filas x   9 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   products            :   32,951 filas x   9 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   products            :   32,951 filas x   9 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   products            :   32,951 filas x   9 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   sellers             :    3,095 filas x   4 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   sellers             :    3,095 filas x   4 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   sellers             :    3,095 filas x   4 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   sellers             :    3,095 filas x   4 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   category_trans      :       71 filas x   2 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   category_trans      :       71 filas x   2 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   category_trans      :       71 filas x   2 cols
+2026-06-10 15:39:04 | INFO | loader:99 |   category_trans      :       71 filas x   2 cols
+2026-06-10 15:39:05 | INFO | loader:99 |   geolocation         : 1,000,163 filas x   5 cols
+2026-06-10 15:39:05 | INFO | loader:99 |   geolocation         : 1,000,163 filas x   5 cols
+2026-06-10 15:39:05 | INFO | loader:99 |   geolocation         : 1,000,163 filas x   5 cols
+2026-06-10 15:39:05 | INFO | loader:99 |   geolocation         : 1,000,163 filas x   5 cols
+2026-06-10 15:39:05 | INFO | loader:101 | Total datasets cargados: 9
+2026-06-10 15:39:05 | INFO | loader:101 | Total datasets cargados: 9
+2026-06-10 15:39:05 | INFO | loader:101 | Total datasets cargados: 9
+2026-06-10 15:39:05 | INFO | loader:101 | Total datasets cargados: 9
+2026-06-10 15:39:05 | INFO | loader:123 | Rango temporal: 2016-09-04 → 2018-10-17 (25 meses)
+2026-06-10 15:39:05 | INFO | loader:123 | Rango temporal: 2016-09-04 → 2018-10-17 (25 meses)
+2026-06-10 15:39:05 | INFO | loader:123 | Rango temporal: 2016-09-04 → 2018-10-17 (25 meses)
+2026-06-10 15:39:05 | INFO | loader:123 | Rango temporal: 2016-09-04 → 2018-10-17 (25 meses)
+2026-06-10 15:39:06 | INFO | loader:145 | 
+       dataset    rows  cols  null_pct  dup_rows
+        orders   99441     8      0.62         0
+   order_items  112650     7      0.00         0
+order_payments  103886     5      0.00         0
+ order_reviews   99224     7     21.01         0
+     customers   99441     5      0.00         0
+      products   32951     9      0.83         0
+       sellers    3095     4      0.00         0
+category_trans      71     2      0.00         0
+   geolocation 1000163     5      0.00    261831
+2026-06-10 15:39:06 | INFO | loader:145 | 
+       dataset    rows  cols  null_pct  dup_rows
+        orders   99441     8      0.62         0
+   order_items  112650     7      0.00         0
+order_payments  103886     5      0.00         0
+ order_reviews   99224     7     21.01         0
+     customers   99441     5      0.00         0
+      products   32951     9      0.83         0
+       sellers    3095     4      0.00         0
+category_trans      71     2      0.00         0
+   geolocation 1000163     5      0.00    261831
+2026-06-10 15:39:06 | INFO | loader:145 | 
+       dataset    rows  cols  null_pct  dup_rows
+        orders   99441     8      0.62         0
+   order_items  112650     7      0.00         0
+order_payments  103886     5      0.00         0
+ order_reviews   99224     7     21.01         0
+     customers   99441     5      0.00         0
+      products   32951     9      0.83         0
+       sellers    3095     4      0.00         0
+category_trans      71     2      0.00         0
+   geolocation 1000163     5      0.00    261831
+2026-06-10 15:39:06 | INFO | loader:145 | 
+       dataset    rows  cols  null_pct  dup_rows
+        orders   99441     8      0.62         0
+   order_items  112650     7      0.00         0
+order_payments  103886     5      0.00         0
+ order_reviews   99224     7     21.01         0
+     customers   99441     5      0.00         0
+      products   32951     9      0.83         0
+       sellers    3095     4      0.00         0
+category_trans      71     2      0.00         0
+   geolocation 1000163     5      0.00    261831
+2026-06-10 15:39:12 | INFO | master_table:21 | Construyendo Master Table…
+2026-06-10 15:39:12 | INFO | master_table:21 | Construyendo Master Table…
+2026-06-10 15:39:12 | INFO | master_table:21 | Construyendo Master Table…
+2026-06-10 15:39:12 | INFO | master_table:21 | Construyendo Master Table…
+2026-06-10 15:39:12 | INFO | master_table:61 | Master Table base: 119,143 filas x 30 cols
+2026-06-10 15:39:12 | INFO | master_table:61 | Master Table base: 119,143 filas x 30 cols
+2026-06-10 15:39:12 | INFO | master_table:61 | Master Table base: 119,143 filas x 30 cols
+2026-06-10 15:39:12 | INFO | master_table:61 | Master Table base: 119,143 filas x 30 cols
+2026-06-10 15:39:12 | INFO | master_table:71 | Generando features transaccionales…
+2026-06-10 15:39:12 | INFO | master_table:71 | Generando features transaccionales…
+2026-06-10 15:39:12 | INFO | master_table:71 | Generando features transaccionales…
+2026-06-10 15:39:12 | INFO | master_table:71 | Generando features transaccionales…
+2026-06-10 15:39:13 | INFO | master_table:126 | Features transaccionales añadidas: 54 cols totales
+2026-06-10 15:39:13 | INFO | master_table:126 | Features transaccionales añadidas: 54 cols totales
+2026-06-10 15:39:13 | INFO | master_table:126 | Features transaccionales añadidas: 54 cols totales
+2026-06-10 15:39:13 | INFO | master_table:126 | Features transaccionales añadidas: 54 cols totales
+2026-06-10 15:39:13 | INFO | monthly_agg:26 | Construyendo tabla mensual…
+2026-06-10 15:39:13 | INFO | monthly_agg:26 | Construyendo tabla mensual…
+2026-06-10 15:39:13 | INFO | monthly_agg:26 | Construyendo tabla mensual…
+2026-06-10 15:39:13 | INFO | monthly_agg:26 | Construyendo tabla mensual…
+2026-06-10 15:39:13 | INFO | monthly_agg:36 | Órdenes válidas (delivered + payment>0): 96,477
+2026-06-10 15:39:13 | INFO | monthly_agg:36 | Órdenes válidas (delivered + payment>0): 96,477
+2026-06-10 15:39:13 | INFO | monthly_agg:36 | Órdenes válidas (delivered + payment>0): 96,477
+2026-06-10 15:39:13 | INFO | monthly_agg:36 | Órdenes válidas (delivered + payment>0): 96,477
+2026-06-10 15:39:13 | INFO | monthly_agg:69 | Serie mensual: 20 meses  (Dec 2016 → Jul 2018)
+2026-06-10 15:39:13 | INFO | monthly_agg:69 | Serie mensual: 20 meses  (Dec 2016 → Jul 2018)
+2026-06-10 15:39:13 | INFO | monthly_agg:69 | Serie mensual: 20 meses  (Dec 2016 → Jul 2018)
+2026-06-10 15:39:13 | INFO | monthly_agg:69 | Serie mensual: 20 meses  (Dec 2016 → Jul 2018)
+2026-06-10 15:39:13 | INFO | monthly_agg:119 | Features de series temporales añadidas: 44 cols totales
+2026-06-10 15:39:13 | INFO | monthly_agg:119 | Features de series temporales añadidas: 44 cols totales
+2026-06-10 15:39:13 | INFO | monthly_agg:119 | Features de series temporales añadidas: 44 cols totales
+2026-06-10 15:39:13 | INFO | monthly_agg:119 | Features de series temporales añadidas: 44 cols totales
+2026-06-10 15:39:17 | INFO | monthly_agg:154 |   Split train     :  17 meses
+2026-06-10 15:39:17 | INFO | monthly_agg:154 |   Split train     :  17 meses
+2026-06-10 15:39:17 | INFO | monthly_agg:154 |   Split train     :  17 meses
+2026-06-10 15:39:17 | INFO | monthly_agg:154 |   Split train     :  17 meses
+2026-06-10 15:39:17 | INFO | monthly_agg:154 |   Split val       :   3 meses
+2026-06-10 15:39:17 | INFO | monthly_agg:154 |   Split val       :   3 meses
+2026-06-10 15:39:17 | INFO | monthly_agg:154 |   Split val       :   3 meses
+2026-06-10 15:39:17 | INFO | monthly_agg:154 |   Split val       :   3 meses
+2026-06-10 15:39:17 | INFO | monthly_agg:154 |   Split backtest  :   0 meses
+2026-06-10 15:39:17 | INFO | monthly_agg:154 |   Split backtest  :   0 meses
+2026-06-10 15:39:17 | INFO | monthly_agg:154 |   Split backtest  :   0 meses
+2026-06-10 15:39:17 | INFO | monthly_agg:154 |   Split backtest  :   0 meses
+2026-06-10 15:39:17 | INFO | monthly_agg:154 |   Split live      :   0 meses
+2026-06-10 15:39:17 | INFO | monthly_agg:154 |   Split live      :   0 meses
+2026-06-10 15:39:17 | INFO | monthly_agg:154 |   Split live      :   0 meses
+2026-06-10 15:39:17 | INFO | monthly_agg:154 |   Split live      :   0 meses
+2026-06-10 15:39:17 | INFO | monthly_agg:154 |   Split all       :  20 meses
+2026-06-10 15:39:17 | INFO | monthly_agg:154 |   Split all       :  20 meses
+2026-06-10 15:39:17 | INFO | monthly_agg:154 |   Split all       :  20 meses
+2026-06-10 15:39:17 | INFO | monthly_agg:154 |   Split all       :  20 meses
+2026-06-10 15:39:25 | INFO | cleaning:47 | OutlierClipper ajustado en 41 columnas
+2026-06-10 15:39:25 | INFO | cleaning:47 | OutlierClipper ajustado en 41 columnas
+2026-06-10 15:39:25 | INFO | cleaning:47 | OutlierClipper ajustado en 41 columnas
+2026-06-10 15:39:25 | INFO | cleaning:47 | OutlierClipper ajustado en 41 columnas
+2026-06-10 15:39:25 | INFO | cleaning:89 | NaNImputer ajustado (median) en 41 columnas
+2026-06-10 15:39:25 | INFO | cleaning:89 | NaNImputer ajustado (median) en 41 columnas
+2026-06-10 15:39:25 | INFO | cleaning:89 | NaNImputer ajustado (median) en 41 columnas
+2026-06-10 15:39:25 | INFO | cleaning:89 | NaNImputer ajustado (median) en 41 columnas
+2026-06-10 15:39:25 | INFO | cleaning:104 | NaN imputados: 79 → 0
+2026-06-10 15:39:25 | INFO | cleaning:104 | NaN imputados: 79 → 0
+2026-06-10 15:39:25 | INFO | cleaning:104 | NaN imputados: 79 → 0
+2026-06-10 15:39:25 | INFO | cleaning:104 | NaN imputados: 79 → 0
+2026-06-10 15:39:25 | INFO | cleaning:128 | RareCategoryGrouper ajustado en 0 columnas
+2026-06-10 15:39:25 | INFO | cleaning:128 | RareCategoryGrouper ajustado en 0 columnas
+2026-06-10 15:39:25 | INFO | cleaning:128 | RareCategoryGrouper ajustado en 0 columnas
+2026-06-10 15:39:25 | INFO | cleaning:128 | RareCategoryGrouper ajustado en 0 columnas
+2026-06-10 15:39:25 | INFO | cleaning:170 | CategoricalEncoder ajustado en 0 columnas categóricas
+2026-06-10 15:39:25 | INFO | cleaning:170 | CategoricalEncoder ajustado en 0 columnas categóricas
+2026-06-10 15:39:25 | INFO | cleaning:170 | CategoricalEncoder ajustado en 0 columnas categóricas
+2026-06-10 15:39:25 | INFO | cleaning:170 | CategoricalEncoder ajustado en 0 columnas categóricas
+2026-06-10 15:39:25 | INFO | cleaning:232 | FeatureScaler (standard) ajustado en 39 columnas
+2026-06-10 15:39:25 | INFO | cleaning:232 | FeatureScaler (standard) ajustado en 39 columnas
+2026-06-10 15:39:25 | INFO | cleaning:232 | FeatureScaler (standard) ajustado en 39 columnas
+2026-06-10 15:39:25 | INFO | cleaning:232 | FeatureScaler (standard) ajustado en 39 columnas
+2026-06-10 15:39:25 | INFO | cleaning:305 | Limpieza aplicada (fit+transform)
+2026-06-10 15:39:25 | INFO | cleaning:305 | Limpieza aplicada (fit+transform)
+2026-06-10 15:39:25 | INFO | cleaning:305 | Limpieza aplicada (fit+transform)
+2026-06-10 15:39:25 | INFO | cleaning:305 | Limpieza aplicada (fit+transform)
+2026-06-10 15:39:29 | INFO | monthly_agg:154 |   Split train     :  17 meses
+2026-06-10 15:39:29 | INFO | monthly_agg:154 |   Split train     :  17 meses
+2026-06-10 15:39:29 | INFO | monthly_agg:154 |   Split train     :  17 meses
+2026-06-10 15:39:29 | INFO | monthly_agg:154 |   Split train     :  17 meses
+2026-06-10 15:39:29 | INFO | monthly_agg:154 |   Split val       :   3 meses
+2026-06-10 15:39:29 | INFO | monthly_agg:154 |   Split val       :   3 meses
+2026-06-10 15:39:29 | INFO | monthly_agg:154 |   Split val       :   3 meses
+2026-06-10 15:39:29 | INFO | monthly_agg:154 |   Split val       :   3 meses
+2026-06-10 15:39:29 | INFO | monthly_agg:154 |   Split backtest  :   0 meses
+2026-06-10 15:39:29 | INFO | monthly_agg:154 |   Split backtest  :   0 meses
+2026-06-10 15:39:29 | INFO | monthly_agg:154 |   Split backtest  :   0 meses
+2026-06-10 15:39:29 | INFO | monthly_agg:154 |   Split backtest  :   0 meses
+2026-06-10 15:39:29 | INFO | monthly_agg:154 |   Split live      :   0 meses
+2026-06-10 15:39:29 | INFO | monthly_agg:154 |   Split live      :   0 meses
+2026-06-10 15:39:29 | INFO | monthly_agg:154 |   Split live      :   0 meses
+2026-06-10 15:39:29 | INFO | monthly_agg:154 |   Split live      :   0 meses
+2026-06-10 15:39:29 | INFO | monthly_agg:154 |   Split all       :  20 meses
+2026-06-10 15:39:29 | INFO | monthly_agg:154 |   Split all       :  20 meses
+2026-06-10 15:39:29 | INFO | monthly_agg:154 |   Split all       :  20 meses
+2026-06-10 15:39:29 | INFO | monthly_agg:154 |   Split all       :  20 meses
+2026-06-10 15:39:29 | INFO | selection:268 | 
+============================================================
+2026-06-10 15:39:29 | INFO | selection:268 | 
+============================================================
+2026-06-10 15:39:29 | INFO | selection:268 | 
+============================================================
+2026-06-10 15:39:29 | INFO | selection:268 | 
+============================================================
+2026-06-10 15:39:29 | INFO | selection:269 | SELECCIÓN DE VARIABLES – Estado inicial: 41 features
+2026-06-10 15:39:29 | INFO | selection:269 | SELECCIÓN DE VARIABLES – Estado inicial: 41 features
+2026-06-10 15:39:29 | INFO | selection:269 | SELECCIÓN DE VARIABLES – Estado inicial: 41 features
+2026-06-10 15:39:29 | INFO | selection:269 | SELECCIÓN DE VARIABLES – Estado inicial: 41 features
+2026-06-10 15:39:29 | INFO | selection:270 | ============================================================
+2026-06-10 15:39:29 | INFO | selection:270 | ============================================================
+2026-06-10 15:39:29 | INFO | selection:270 | ============================================================
+2026-06-10 15:39:29 | INFO | selection:270 | ============================================================
+2026-06-10 15:39:29 | INFO | selection:97 | Missing: 41 features OK, 0 eliminadas
+2026-06-10 15:39:29 | INFO | selection:97 | Missing: 41 features OK, 0 eliminadas
+2026-06-10 15:39:29 | INFO | selection:97 | Missing: 41 features OK, 0 eliminadas
+2026-06-10 15:39:29 | INFO | selection:97 | Missing: 41 features OK, 0 eliminadas
+2026-06-10 15:39:29 | INFO | selection:79 | PSI: 4 features estables, 37 eliminadas
+2026-06-10 15:39:29 | INFO | selection:79 | PSI: 4 features estables, 37 eliminadas
+2026-06-10 15:39:29 | INFO | selection:79 | PSI: 4 features estables, 37 eliminadas
+2026-06-10 15:39:29 | INFO | selection:79 | PSI: 4 features estables, 37 eliminadas
+2026-06-10 15:39:29 | WARNING | selection:240 | PSI: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-10 15:39:29 | WARNING | selection:240 | PSI: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-10 15:39:29 | WARNING | selection:240 | PSI: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-10 15:39:29 | WARNING | selection:240 | PSI: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-10 15:39:29 | INFO | selection:116 | Correlación (umbral=0.95): 4 features OK, 1 eliminadas
+2026-06-10 15:39:29 | INFO | selection:116 | Correlación (umbral=0.95): 4 features OK, 1 eliminadas
+2026-06-10 15:39:29 | INFO | selection:116 | Correlación (umbral=0.95): 4 features OK, 1 eliminadas
+2026-06-10 15:39:29 | INFO | selection:116 | Correlación (umbral=0.95): 4 features OK, 1 eliminadas
+2026-06-10 15:39:29 | WARNING | selection:240 | Correlación: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-10 15:39:29 | WARNING | selection:240 | Correlación: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-10 15:39:29 | WARNING | selection:240 | Correlación: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-10 15:39:29 | WARNING | selection:240 | Correlación: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-10 15:39:29 | INFO | selection:176 | Univariante (umbral=0.1): 5 features OK, 0 eliminadas
+2026-06-10 15:39:29 | INFO | selection:176 | Univariante (umbral=0.1): 5 features OK, 0 eliminadas
+2026-06-10 15:39:29 | INFO | selection:176 | Univariante (umbral=0.1): 5 features OK, 0 eliminadas
+2026-06-10 15:39:29 | INFO | selection:176 | Univariante (umbral=0.1): 5 features OK, 0 eliminadas
+2026-06-10 15:39:32 | INFO | selection:214 | WRAPPER RFECV: 3 features seleccionadas
+2026-06-10 15:39:32 | INFO | selection:214 | WRAPPER RFECV: 3 features seleccionadas
+2026-06-10 15:39:32 | INFO | selection:214 | WRAPPER RFECV: 3 features seleccionadas
+2026-06-10 15:39:32 | INFO | selection:214 | WRAPPER RFECV: 3 features seleccionadas
+2026-06-10 15:39:32 | WARNING | selection:240 | Wrapper: propuesta dejó 3 features (< 5), se retienen 5
+2026-06-10 15:39:32 | WARNING | selection:240 | Wrapper: propuesta dejó 3 features (< 5), se retienen 5
+2026-06-10 15:39:32 | WARNING | selection:240 | Wrapper: propuesta dejó 3 features (< 5), se retienen 5
+2026-06-10 15:39:32 | WARNING | selection:240 | Wrapper: propuesta dejó 3 features (< 5), se retienen 5
+2026-06-10 15:39:32 | INFO | selection:372 | 
+============================================================
+2026-06-10 15:39:32 | INFO | selection:372 | 
+============================================================
+2026-06-10 15:39:32 | INFO | selection:372 | 
+============================================================
+2026-06-10 15:39:32 | INFO | selection:372 | 
+============================================================
+2026-06-10 15:39:32 | INFO | selection:373 | RESUMEN DE SELECCIÓN DE VARIABLES:
+2026-06-10 15:39:32 | INFO | selection:373 | RESUMEN DE SELECCIÓN DE VARIABLES:
+2026-06-10 15:39:32 | INFO | selection:373 | RESUMEN DE SELECCIÓN DE VARIABLES:
+2026-06-10 15:39:32 | INFO | selection:373 | RESUMEN DE SELECCIÓN DE VARIABLES:
+2026-06-10 15:39:32 | INFO | selection:375 |   0_initial: 41 features
+2026-06-10 15:39:32 | INFO | selection:375 |   0_initial: 41 features
+2026-06-10 15:39:32 | INFO | selection:375 |   0_initial: 41 features
+2026-06-10 15:39:32 | INFO | selection:375 |   0_initial: 41 features
+2026-06-10 15:39:32 | INFO | selection:375 |   1_missing: 41 features
+2026-06-10 15:39:32 | INFO | selection:375 |   1_missing: 41 features
+2026-06-10 15:39:32 | INFO | selection:375 |   1_missing: 41 features
+2026-06-10 15:39:32 | INFO | selection:375 |   1_missing: 41 features
+2026-06-10 15:39:32 | INFO | selection:375 |   2_psi: 5 features
+2026-06-10 15:39:32 | INFO | selection:375 |   2_psi: 5 features
+2026-06-10 15:39:32 | INFO | selection:375 |   2_psi: 5 features
+2026-06-10 15:39:32 | INFO | selection:375 |   2_psi: 5 features
+2026-06-10 15:39:32 | INFO | selection:375 |   3_correlation: 5 features
+2026-06-10 15:39:32 | INFO | selection:375 |   3_correlation: 5 features
+2026-06-10 15:39:32 | INFO | selection:375 |   3_correlation: 5 features
+2026-06-10 15:39:32 | INFO | selection:375 |   3_correlation: 5 features
+2026-06-10 15:39:32 | INFO | selection:375 |   4_univariate: 5 features
+2026-06-10 15:39:32 | INFO | selection:375 |   4_univariate: 5 features
+2026-06-10 15:39:32 | INFO | selection:375 |   4_univariate: 5 features
+2026-06-10 15:39:32 | INFO | selection:375 |   4_univariate: 5 features
+2026-06-10 15:39:32 | INFO | selection:375 |   5_wrapper: 5 features
+2026-06-10 15:39:32 | INFO | selection:375 |   5_wrapper: 5 features
+2026-06-10 15:39:32 | INFO | selection:375 |   5_wrapper: 5 features
+2026-06-10 15:39:32 | INFO | selection:375 |   5_wrapper: 5 features
+2026-06-10 15:39:32 | INFO | selection:376 |   → Features finales seleccionadas: 5
+2026-06-10 15:39:32 | INFO | selection:376 |   → Features finales seleccionadas: 5
+2026-06-10 15:39:32 | INFO | selection:376 |   → Features finales seleccionadas: 5
+2026-06-10 15:39:32 | INFO | selection:376 |   → Features finales seleccionadas: 5
+2026-06-10 15:39:32 | INFO | selection:377 | ============================================================
+2026-06-10 15:39:32 | INFO | selection:377 | ============================================================
+2026-06-10 15:39:32 | INFO | selection:377 | ============================================================
+2026-06-10 15:39:32 | INFO | selection:377 | ============================================================
+2026-06-10 15:39:38 | INFO | trainer:95 | Iniciando Optuna (n_trials=20, timeout=120s, metric=rmse)…
+2026-06-10 15:39:38 | INFO | trainer:95 | Iniciando Optuna (n_trials=20, timeout=120s, metric=rmse)…
+2026-06-10 15:39:38 | INFO | trainer:95 | Iniciando Optuna (n_trials=20, timeout=120s, metric=rmse)…
+2026-06-10 15:39:38 | INFO | trainer:95 | Iniciando Optuna (n_trials=20, timeout=120s, metric=rmse)…
+2026-06-10 15:39:39 | INFO | trainer:119 | Mejor RMSE: 460626.3732
+2026-06-10 15:39:39 | INFO | trainer:119 | Mejor RMSE: 460626.3732
+2026-06-10 15:39:39 | INFO | trainer:119 | Mejor RMSE: 460626.3732
+2026-06-10 15:39:39 | INFO | trainer:119 | Mejor RMSE: 460626.3732
+2026-06-10 15:39:39 | INFO | trainer:120 | Mejores parámetros: {'n_estimators': 638, 'learning_rate': 0.0835361075531176, 'num_leaves': 19, 'max_depth': 4, 'min_child_samples': 6, 'subsample': 0.7301321323053057, 'colsample_bytree': 0.7554709158757928, 'reg_alpha': 0.2713490317738959, 'reg_lambda': 0.8287375091519293}
+2026-06-10 15:39:39 | INFO | trainer:120 | Mejores parámetros: {'n_estimators': 638, 'learning_rate': 0.0835361075531176, 'num_leaves': 19, 'max_depth': 4, 'min_child_samples': 6, 'subsample': 0.7301321323053057, 'colsample_bytree': 0.7554709158757928, 'reg_alpha': 0.2713490317738959, 'reg_lambda': 0.8287375091519293}
+2026-06-10 15:39:39 | INFO | trainer:120 | Mejores parámetros: {'n_estimators': 638, 'learning_rate': 0.0835361075531176, 'num_leaves': 19, 'max_depth': 4, 'min_child_samples': 6, 'subsample': 0.7301321323053057, 'colsample_bytree': 0.7554709158757928, 'reg_alpha': 0.2713490317738959, 'reg_lambda': 0.8287375091519293}
+2026-06-10 15:39:39 | INFO | trainer:120 | Mejores parámetros: {'n_estimators': 638, 'learning_rate': 0.0835361075531176, 'num_leaves': 19, 'max_depth': 4, 'min_child_samples': 6, 'subsample': 0.7301321323053057, 'colsample_bytree': 0.7554709158757928, 'reg_alpha': 0.2713490317738959, 'reg_lambda': 0.8287375091519293}
+2026-06-10 15:39:49 | INFO | metrics:51 | [Naive] RMSE=139,874.73  MAE=117,930.31  MAPE=9.05%  sMAPE=8.51%
+2026-06-10 15:39:49 | INFO | metrics:51 | [Naive] RMSE=139,874.73  MAE=117,930.31  MAPE=9.05%  sMAPE=8.51%
+2026-06-10 15:39:49 | INFO | metrics:51 | [Naive] RMSE=139,874.73  MAE=117,930.31  MAPE=9.05%  sMAPE=8.51%
+2026-06-10 15:39:49 | INFO | metrics:51 | [Naive] RMSE=139,874.73  MAE=117,930.31  MAPE=9.05%  sMAPE=8.51%
+2026-06-10 15:39:49 | INFO | metrics:51 | [MovingAverage_3M] RMSE=96,803.98  MAE=95,645.99  MAPE=7.12%  sMAPE=6.96%
+2026-06-10 15:39:49 | INFO | metrics:51 | [MovingAverage_3M] RMSE=96,803.98  MAE=95,645.99  MAPE=7.12%  sMAPE=6.96%
+2026-06-10 15:39:49 | INFO | metrics:51 | [MovingAverage_3M] RMSE=96,803.98  MAE=95,645.99  MAPE=7.12%  sMAPE=6.96%
+2026-06-10 15:39:49 | INFO | metrics:51 | [MovingAverage_3M] RMSE=96,803.98  MAE=95,645.99  MAPE=7.12%  sMAPE=6.96%
+2026-06-10 15:39:49 | INFO | metrics:51 | [SeasonalNaive] RMSE=691,070.88  MAE=686,897.28  MAPE=50.47%  sMAPE=67.69%
+2026-06-10 15:39:49 | INFO | metrics:51 | [SeasonalNaive] RMSE=691,070.88  MAE=686,897.28  MAPE=50.47%  sMAPE=67.69%
+2026-06-10 15:39:49 | INFO | metrics:51 | [SeasonalNaive] RMSE=691,070.88  MAE=686,897.28  MAPE=50.47%  sMAPE=67.69%
+2026-06-10 15:39:49 | INFO | metrics:51 | [SeasonalNaive] RMSE=691,070.88  MAE=686,897.28  MAPE=50.47%  sMAPE=67.69%
+2026-06-10 15:39:49 | INFO | metrics:51 | [LinearTrend] RMSE=423,893.54  MAE=395,532.86  MAPE=29.87%  sMAPE=25.45%
+2026-06-10 15:39:49 | INFO | metrics:51 | [LinearTrend] RMSE=423,893.54  MAE=395,532.86  MAPE=29.87%  sMAPE=25.45%
+2026-06-10 15:39:49 | INFO | metrics:51 | [LinearTrend] RMSE=423,893.54  MAE=395,532.86  MAPE=29.87%  sMAPE=25.45%
+2026-06-10 15:39:49 | INFO | metrics:51 | [LinearTrend] RMSE=423,893.54  MAE=395,532.86  MAPE=29.87%  sMAPE=25.45%
+2026-06-10 15:39:49 | INFO | baseline:114 | 
+Mejor baseline: MovingAverage_3M (MAPE=7.12%)
+2026-06-10 15:39:49 | INFO | baseline:114 | 
+Mejor baseline: MovingAverage_3M (MAPE=7.12%)
+2026-06-10 15:39:49 | INFO | baseline:114 | 
+Mejor baseline: MovingAverage_3M (MAPE=7.12%)
+2026-06-10 15:39:49 | INFO | baseline:114 | 
+Mejor baseline: MovingAverage_3M (MAPE=7.12%)
+2026-06-10 15:39:49 | INFO | baseline:115 | Objetivo final: MAPE < 10%
+2026-06-10 15:39:49 | INFO | baseline:115 | Objetivo final: MAPE < 10%
+2026-06-10 15:39:49 | INFO | baseline:115 | Objetivo final: MAPE < 10%
+2026-06-10 15:39:49 | INFO | baseline:115 | Objetivo final: MAPE < 10%
+2026-06-10 15:39:49 | INFO | forecaster:82 | LightGBM entrenado (3 horizontes)
+2026-06-10 15:39:49 | INFO | forecaster:82 | LightGBM entrenado (3 horizontes)
+2026-06-10 15:39:49 | INFO | forecaster:82 | LightGBM entrenado (3 horizontes)
+2026-06-10 15:39:49 | INFO | forecaster:82 | LightGBM entrenado (3 horizontes)
+2026-06-10 15:39:49 | INFO | trainer:158 | Modelo final entrenado con mejores hiperparámetros
+2026-06-10 15:39:49 | INFO | trainer:158 | Modelo final entrenado con mejores hiperparámetros
+2026-06-10 15:39:49 | INFO | trainer:158 | Modelo final entrenado con mejores hiperparámetros
+2026-06-10 15:39:49 | INFO | trainer:158 | Modelo final entrenado con mejores hiperparámetros
+2026-06-10 15:39:49 | INFO | metrics:51 | [LightGBM_final] RMSE=118,807.46  MAE=95,849.83  MAPE=6.80%  sMAPE=6.94%
+2026-06-10 15:39:49 | INFO | metrics:51 | [LightGBM_final] RMSE=118,807.46  MAE=95,849.83  MAPE=6.80%  sMAPE=6.94%
+2026-06-10 15:39:49 | INFO | metrics:51 | [LightGBM_final] RMSE=118,807.46  MAE=95,849.83  MAPE=6.80%  sMAPE=6.94%
+2026-06-10 15:39:49 | INFO | metrics:51 | [LightGBM_final] RMSE=118,807.46  MAE=95,849.83  MAPE=6.80%  sMAPE=6.94%
+2026-06-10 15:40:02 | INFO | monthly_agg:185 | Simulando actualización mensual de datos…
+2026-06-10 15:40:02 | INFO | monthly_agg:185 | Simulando actualización mensual de datos…
+2026-06-10 15:40:02 | INFO | monthly_agg:185 | Simulando actualización mensual de datos…
+2026-06-10 15:40:02 | INFO | monthly_agg:185 | Simulando actualización mensual de datos…
+2026-06-10 15:40:02 | INFO | monthly_agg:119 | Features de series temporales añadidas: 44 cols totales
+2026-06-10 15:40:02 | INFO | monthly_agg:119 | Features de series temporales añadidas: 44 cols totales
+2026-06-10 15:40:02 | INFO | monthly_agg:119 | Features de series temporales añadidas: 44 cols totales
+2026-06-10 15:40:02 | INFO | monthly_agg:119 | Features de series temporales añadidas: 44 cols totales
+2026-06-10 15:40:02 | INFO | monthly_agg:189 | Tabla actualizada: 21 meses
+2026-06-10 15:40:02 | INFO | monthly_agg:189 | Tabla actualizada: 21 meses
+2026-06-10 15:40:02 | INFO | monthly_agg:189 | Tabla actualizada: 21 meses
+2026-06-10 15:40:02 | INFO | monthly_agg:189 | Tabla actualizada: 21 meses
+2026-06-10 15:40:07 | INFO | metrics:129 | Métricas de negocio calculadas
+2026-06-10 15:40:07 | INFO | metrics:129 | Métricas de negocio calculadas
+2026-06-10 15:40:07 | INFO | metrics:129 | Métricas de negocio calculadas
+2026-06-10 15:40:07 | INFO | metrics:129 | Métricas de negocio calculadas
+2026-06-10 15:40:11 | INFO | helpers:52 | Modelo guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\models\lgbm_forecaster.pkl
+2026-06-10 15:40:11 | INFO | helpers:52 | Modelo guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\models\lgbm_forecaster.pkl
+2026-06-10 15:40:11 | INFO | helpers:52 | Modelo guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\models\lgbm_forecaster.pkl
+2026-06-10 15:40:11 | INFO | helpers:52 | Modelo guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\models\lgbm_forecaster.pkl
+2026-06-10 15:40:11 | INFO | helpers:52 | Modelo guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\models\cleaning_pipeline.pkl
+2026-06-10 15:40:11 | INFO | helpers:52 | Modelo guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\models\cleaning_pipeline.pkl
+2026-06-10 15:40:11 | INFO | helpers:52 | Modelo guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\models\cleaning_pipeline.pkl
+2026-06-10 15:40:11 | INFO | helpers:52 | Modelo guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\models\cleaning_pipeline.pkl
+2026-06-10 15:40:11 | INFO | helpers:74 | DataFrame guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\processed\monthly_features.parquet (20 filas)
+2026-06-10 15:40:11 | INFO | helpers:74 | DataFrame guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\processed\monthly_features.parquet (20 filas)
+2026-06-10 15:40:11 | INFO | helpers:74 | DataFrame guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\processed\monthly_features.parquet (20 filas)
+2026-06-10 15:40:11 | INFO | helpers:74 | DataFrame guardado: C:\RONALD\maestria\ProyectoG10-Sprint2\data\processed\monthly_features.parquet (20 filas)
