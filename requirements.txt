@@ -1,3 +1,12 @@
+# ══════════════════════════════════════════════════════════════
+#  NOTA DE REPRODUCIBILIDAD
+#  Los artefactos .pkl son sensibles a la versión de scikit-learn /
+#  lightgbm con que fueron entrenados (InconsistentVersionWarning).
+#  Las versiones exactas usadas en cada entrenamiento quedan
+#  registradas en data/models/final_model.pkl → metadata['versions'].
+#  Para congelar el entorno actual:  pip freeze > requirements.lock
+# ══════════════════════════════════════════════════════════════
+
 # ─── Core Data
 pandas>=2.0.0
 numpy>=1.24.0

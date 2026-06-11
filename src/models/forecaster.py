@@ -46,6 +46,7 @@ class LightGBMForecaster:
         }
         self.models_: dict = {}
         self.feature_cols_: list = []
+        self.resid_std_: dict = {}   # std de residuos in-sample por horizonte (para intervalos)
 
     def fit(
         self,
@@ -79,6 +80,10 @@ class LightGBMForecaster:
 
             self.models_[h] = model
 
+            # Residuos in-sample → desviación estándar para intervalos de predicción
+            resid = np.asarray(y_shifted[mask]) - model.predict(X[mask])
+            self.resid_std_[h] = float(np.std(resid, ddof=1)) if len(resid) > 1 else 0.0
+
         logger.info(f"LightGBM entrenado ({self.horizon} horizontes)")
         return self
 
@@ -90,6 +95,50 @@ class LightGBMForecaster:
             pred = self.models_[h].predict(X[-1:])
             preds.append(float(pred[0]))
         return np.array(preds)
+
+    def predict_with_intervals(
+        self,
+        X_pred: pd.DataFrame,
+        alpha: float = 0.05,
+        inflation: float = 1.5,
+    ) -> pd.DataFrame:
+        """
+        Predice con intervalos de confianza basados en residuos.
+
+        Los intervalos se construyen como yhat ± z * std(residuos in-sample)
+        del modelo de cada horizonte. Como los residuos in-sample tienden a
+        subestimar el error real (overfitting), se aplica un factor de
+        inflación conservador (`inflation`, por defecto 1.5).
+
+        Reemplaza el supuesto anterior de ±15% fijo.
+
+        Parámetros
+        ----------
+        X_pred    : DataFrame con la última fila de features disponibles
+        alpha     : nivel de significancia (0.05 → intervalos al 95%)
+        inflation : factor multiplicativo sobre std de residuos
+
+        Retorna
+        -------
+        DataFrame con columnas: horizon, yhat, yhat_lower, yhat_upper.
+        """
+        from scipy.stats import norm
+
+        z = float(norm.ppf(1 - alpha / 2))
+        preds = self.predict(X_pred)
+        resid_std = getattr(self, "resid_std_", {})  # compat. con pickles antiguos
+
+        rows = []
+        for h, yhat in enumerate(preds, start=1):
+            std = resid_std.get(h, 0.0) * inflation
+            margin = z * std if std > 0 else 0.15 * abs(yhat)  # fallback ±15%
+            rows.append({
+                "horizon":    h,
+                "yhat":       float(yhat),
+                "yhat_lower": float(yhat - margin),
+                "yhat_upper": float(yhat + margin),
+            })
+        return pd.DataFrame(rows)
 
     def update(self, X_new: pd.DataFrame, y_new: pd.Series, n_extra_trees: int = 20):
         """

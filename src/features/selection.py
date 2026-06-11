@@ -11,6 +11,13 @@ Implementa el flujo del Excel en orden estricto:
   Final    : WRAPPER (RFECV)          (selección recursiva con validación cruzada)
 
 El resultado es la lista final de features seleccionadas + tabla de trazabilidad.
+
+Nota metodológica (WoE/IV): el flujo de ejemplo menciona WoE/IV como filter
+supervisado. WoE/IV está definido para targets binarios (clasificación /
+scoring). Como el target de este proyecto (monthly_revenue) es continuo,
+se sustituye por su equivalente para regresión: selección univariante por
+información mutua (mutual_info_regression) / F-test (f_regression),
+cumpliendo el mismo rol dentro del flujo.
 """
 import numpy as np
 import pandas as pd
