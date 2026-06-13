@@ -1,0 +1,45 @@
+﻿Nro,Dominio,Variable,flagSelected,importancia_seleccion,importancia_modelo_final
+1,Target,monthly_revenue,0,0.0,0.0
+2,Calendario / Estacionalidad,year_month,0,0.0,0.0
+3,Calendario / Estacionalidad,ds,0,0.0,0.0
+4,Órdenes,monthly_orders,1,50.7,25.82
+5,Clientes,monthly_customers,0,0.0,0.0
+6,Órdenes,monthly_items,0,0.0,0.0
+7,Ticket / Precio,avg_ticket,0,0.0,0.0
+8,Ticket / Precio,median_ticket,0,0.0,0.0
+9,Satisfacción,avg_review_score,0,0.0,0.0
+10,Entregas,avg_delivery_days,0,0.0,0.0
+11,Entregas,avg_delay_days,1,13.62,12.77
+12,Entregas,pct_late_delivery,0,0.0,0.0
+13,Flete,avg_freight,0,0.0,0.0
+14,Ticket / Precio,avg_price,0,0.0,0.0
+15,Flete,total_freight,0,0.0,0.0
+16,Pagos,pct_credit_card,0,0.0,0.0
+17,Pagos,pct_boleto,0,0.0,0.0
+18,Pagos,pct_installments,0,0.0,0.0
+19,Pagos,avg_installments,0,0.0,0.0
+20,Diversidad de Oferta,unique_categories,0,0.0,0.0
+21,Diversidad de Oferta,unique_sellers,0,0.0,0.0
+22,Diversidad de Oferta,unique_states,0,0.0,0.0
+23,Historia del Target (lags),revenue_lag_1,0,0.0,0.0
+24,Historia de Órdenes (lags),orders_lag_1,0,0.0,0.0
+25,Historia del Target (lags),revenue_lag_2,0,0.0,0.0
+26,Historia de Órdenes (lags),orders_lag_2,0,0.0,0.0
+27,Historia del Target (lags),revenue_lag_3,0,0.0,0.0
+28,Historia de Órdenes (lags),orders_lag_3,0,0.0,0.0
+29,Historia del Target (lags),revenue_lag_6,0,0.0,0.0
+30,Historia de Órdenes (lags),orders_lag_6,0,0.0,0.0
+31,Historia del Target (lags),revenue_lag_12,0,0.0,0.0
+32,Historia de Órdenes (lags),orders_lag_12,0,0.0,0.0
+33,Historia del Target (lags),revenue_rolling_mean_3,0,0.0,0.0
+34,Historia del Target (lags),revenue_rolling_std_3,0,0.0,0.0
+35,Historia del Target (lags),revenue_rolling_mean_6,0,0.0,0.0
+36,Historia del Target (lags),revenue_rolling_std_6,0,0.0,0.0
+37,Historia del Target (lags),revenue_mom_growth,0,0.0,0.0
+38,Historia del Target (lags),revenue_yoy_growth,0,0.0,0.0
+39,Calendario / Estacionalidad,month,1,18.61,11.55
+40,Calendario / Estacionalidad,quarter,1,5.73,26.85
+41,Calendario / Estacionalidad,month_sin,1,11.34,23.0
+42,Calendario / Estacionalidad,month_cos,0,0.0,0.0
+43,Calendario / Estacionalidad,is_q4,0,0.0,0.0
+44,Calendario / Estacionalidad,is_nov_dec,0,0.0,0.0

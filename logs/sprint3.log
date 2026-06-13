@@ -163,3 +163,216 @@ Mejor baseline: MovingAverage_3M (MAPE=7.12%)
 2026-06-11 05:05:24 | INFO | helpers:52 | Modelo guardado: /sessions/bold-charming-archimedes/mnt/ProyectoG10/data/models/lgbm_forecaster.pkl
 2026-06-11 05:05:24 | INFO | helpers:52 | Modelo guardado: /sessions/bold-charming-archimedes/mnt/ProyectoG10/data/models/cleaning_pipeline.pkl
 2026-06-11 05:05:25 | INFO | helpers:52 | Modelo guardado: /sessions/bold-charming-archimedes/mnt/ProyectoG10/data/models/final_model.pkl
+2026-06-13 00:06:51 | INFO | cleaning:47 | OutlierClipper ajustado en 41 columnas
+2026-06-13 00:06:51 | INFO | cleaning:89 | NaNImputer ajustado (median) en 41 columnas
+2026-06-13 00:06:51 | INFO | cleaning:104 | NaN imputados: 79 → 0
+2026-06-13 00:06:51 | INFO | cleaning:128 | RareCategoryGrouper ajustado en 0 columnas
+2026-06-13 00:06:51 | INFO | cleaning:170 | CategoricalEncoder ajustado en 0 columnas categóricas
+2026-06-13 00:06:51 | INFO | cleaning:232 | FeatureScaler (standard) ajustado en 39 columnas
+2026-06-13 00:06:51 | INFO | cleaning:305 | Limpieza aplicada (fit+transform)
+2026-06-13 00:06:51 | INFO | monthly_agg:154 |   Split train     :  17 meses
+2026-06-13 00:06:51 | INFO | monthly_agg:154 |   Split val       :   3 meses
+2026-06-13 00:06:51 | INFO | monthly_agg:154 |   Split backtest  :   0 meses
+2026-06-13 00:06:51 | INFO | monthly_agg:154 |   Split live      :   0 meses
+2026-06-13 00:06:51 | INFO | monthly_agg:154 |   Split all       :  20 meses
+2026-06-13 00:06:51 | INFO | selection:275 | 
+============================================================
+2026-06-13 00:06:51 | INFO | selection:276 | SELECCIÓN DE VARIABLES – Estado inicial: 41 features
+2026-06-13 00:06:51 | INFO | selection:277 | ============================================================
+2026-06-13 00:06:51 | INFO | selection:104 | Missing: 41 features OK, 0 eliminadas
+2026-06-13 00:06:51 | INFO | selection:86 | PSI: 4 features estables, 37 eliminadas
+2026-06-13 00:06:51 | WARNING | selection:247 | PSI: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-13 00:06:51 | INFO | selection:123 | Correlación (umbral=0.95): 4 features OK, 1 eliminadas
+2026-06-13 00:06:51 | WARNING | selection:247 | Correlación: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-13 00:06:51 | INFO | selection:183 | Univariante (umbral=0.1): 5 features OK, 0 eliminadas
+2026-06-13 00:06:55 | INFO | selection:221 | WRAPPER RFECV: 3 features seleccionadas
+2026-06-13 00:06:56 | WARNING | selection:247 | Wrapper: propuesta dejó 3 features (< 5), se retienen 5
+2026-06-13 00:06:56 | INFO | selection:379 | 
+============================================================
+2026-06-13 00:06:56 | INFO | selection:380 | RESUMEN DE SELECCIÓN DE VARIABLES:
+2026-06-13 00:06:56 | INFO | selection:382 |   0_initial: 41 features
+2026-06-13 00:06:56 | INFO | selection:382 |   1_missing: 41 features
+2026-06-13 00:06:56 | INFO | selection:382 |   2_psi: 5 features
+2026-06-13 00:06:56 | INFO | selection:382 |   3_correlation: 5 features
+2026-06-13 00:06:56 | INFO | selection:382 |   4_univariate: 5 features
+2026-06-13 00:06:56 | INFO | selection:382 |   5_wrapper: 5 features
+2026-06-13 00:06:56 | INFO | selection:383 |   → Features finales seleccionadas: 5
+2026-06-13 00:06:56 | INFO | selection:384 | ============================================================
+2026-06-13 00:06:56 | INFO | forecaster:87 | LightGBM entrenado (3 horizontes)
+2026-06-13 00:06:56 | INFO | forecaster:87 | LightGBM entrenado (3 horizontes)
+2026-06-13 00:06:56 | INFO | metrics:51 | [LGBM_todas_41f] RMSE=469,441.71  MAE=452,931.35  MAPE=32.90%  sMAPE=39.78%
+2026-06-13 00:06:56 | INFO | metrics:51 | [LGBM_seleccionadas_5f] RMSE=469,441.71  MAE=452,931.35  MAPE=32.90%  sMAPE=39.78%
+2026-06-13 00:06:56 | INFO | gap_report:111 | Costo de selección: 41 → 5 features, ΔMAPE = +0.00 pp
+2026-06-13 00:06:56 | INFO | trainer:95 | Iniciando Optuna (n_trials=30, timeout=180s, metric=rmse)…
+2026-06-13 00:06:57 | INFO | trainer:119 | Mejor RMSE: 460626.3732
+2026-06-13 00:06:57 | INFO | trainer:120 | Mejores parámetros: {'n_estimators': 638, 'learning_rate': 0.0835361075531176, 'num_leaves': 19, 'max_depth': 4, 'min_child_samples': 6, 'subsample': 0.7301321323053057, 'colsample_bytree': 0.7554709158757928, 'reg_alpha': 0.2713490317738959, 'reg_lambda': 0.8287375091519293}
+2026-06-13 00:06:57 | INFO | metrics:51 | [Naive] RMSE=139,874.73  MAE=117,930.31  MAPE=9.05%  sMAPE=8.51%
+2026-06-13 00:06:57 | INFO | metrics:51 | [MovingAverage_3M] RMSE=96,803.98  MAE=95,645.99  MAPE=7.12%  sMAPE=6.96%
+2026-06-13 00:06:57 | INFO | metrics:51 | [SeasonalNaive] RMSE=691,070.88  MAE=686,897.28  MAPE=50.47%  sMAPE=67.69%
+2026-06-13 00:06:57 | INFO | metrics:51 | [LinearTrend] RMSE=423,893.54  MAE=395,532.86  MAPE=29.87%  sMAPE=25.45%
+2026-06-13 00:06:57 | INFO | baseline:114 | 
+Mejor baseline: MovingAverage_3M (MAPE=7.12%)
+2026-06-13 00:06:57 | INFO | baseline:115 | Objetivo final: MAPE < 10%
+2026-06-13 00:06:57 | INFO | forecaster:87 | LightGBM entrenado (3 horizontes)
+2026-06-13 00:06:57 | INFO | trainer:158 | Modelo final entrenado con mejores hiperparámetros
+2026-06-13 00:06:57 | INFO | metrics:51 | [LightGBM_Optuna] RMSE=188,709.76  MAE=131,616.38  MAPE=10.14%  sMAPE=9.19%
+2026-06-13 00:06:59 | INFO | sklearn_forecaster:53 | RandomForest entrenado (3 horizontes)
+2026-06-13 00:06:59 | INFO | metrics:51 | [RandomForest] RMSE=67,885.31  MAE=64,454.92  MAPE=4.71%  sMAPE=4.70%
+2026-06-13 00:06:59 | INFO | sklearn_forecaster:53 | Ridge_Regression entrenado (3 horizontes)
+2026-06-13 00:06:59 | INFO | metrics:51 | [Ridge_Regression] RMSE=104,094.05  MAE=88,863.63  MAPE=6.32%  sMAPE=6.60%
+2026-06-13 00:06:59 | INFO | sklearn_forecaster:53 | XGBoost entrenado (3 horizontes)
+2026-06-13 00:06:59 | INFO | metrics:51 | [XGBoost] RMSE=74,765.10  MAE=59,699.75  MAPE=4.54%  sMAPE=4.67%
+2026-06-13 00:07:03 | INFO | forecaster:282 | Prophet entrenado con 17 puntos
+2026-06-13 00:07:03 | INFO | metrics:51 | [Prophet] RMSE=1,909,895.60  MAE=1,686,323.90  MAPE=121.15%  sMAPE=79.21%
+2026-06-13 00:07:03 | INFO | forecaster:363 | SARIMA entrenado: AIC=10.00
+2026-06-13 00:07:03 | INFO | metrics:51 | [SARIMA] RMSE=355,952.57  MAE=294,929.51  MAPE=22.59%  sMAPE=20.96%
+2026-06-13 00:07:03 | INFO | gap_report:72 | Resumen de gap train→backtest calculado
+2026-06-13 00:07:06 | INFO | forecaster:87 | LightGBM entrenado (3 horizontes)
+2026-06-13 00:07:06 | INFO | trainer:158 | Modelo final entrenado con mejores hiperparámetros
+2026-06-13 00:07:07 | INFO | selection_table:115 | Tabla de selección generada: 44 variables, 5 seleccionadas (importancia_seleccion suma 100.0%)
+2026-06-13 00:07:07 | INFO | selection_table:126 | Tabla de selección exportada: reports/seleccion_variables.csv
+2026-06-13 00:07:07 | INFO | helpers:52 | Modelo guardado: /sessions/bold-charming-archimedes/mnt/ProyectoG10/data/models/lgbm_forecaster.pkl
+2026-06-13 00:07:07 | INFO | helpers:52 | Modelo guardado: /sessions/bold-charming-archimedes/mnt/ProyectoG10/data/models/cleaning_pipeline.pkl
+2026-06-13 00:07:08 | INFO | helpers:52 | Modelo guardado: /sessions/bold-charming-archimedes/mnt/ProyectoG10/data/models/final_model.pkl
+2026-06-13 00:11:09 | INFO | cleaning:47 | OutlierClipper ajustado en 41 columnas
+2026-06-13 00:11:09 | INFO | cleaning:89 | NaNImputer ajustado (median) en 41 columnas
+2026-06-13 00:11:09 | INFO | cleaning:104 | NaN imputados: 79 → 0
+2026-06-13 00:11:09 | INFO | cleaning:128 | RareCategoryGrouper ajustado en 0 columnas
+2026-06-13 00:11:09 | INFO | cleaning:170 | CategoricalEncoder ajustado en 0 columnas categóricas
+2026-06-13 00:11:09 | INFO | cleaning:232 | FeatureScaler (standard) ajustado en 39 columnas
+2026-06-13 00:11:09 | INFO | cleaning:305 | Limpieza aplicada (fit+transform)
+2026-06-13 00:11:09 | INFO | monthly_agg:154 |   Split train     :  17 meses
+2026-06-13 00:11:09 | INFO | monthly_agg:154 |   Split val       :   3 meses
+2026-06-13 00:11:09 | INFO | monthly_agg:154 |   Split backtest  :   0 meses
+2026-06-13 00:11:09 | INFO | monthly_agg:154 |   Split live      :   0 meses
+2026-06-13 00:11:09 | INFO | monthly_agg:154 |   Split all       :  20 meses
+2026-06-13 00:11:09 | INFO | selection:275 | 
+============================================================
+2026-06-13 00:11:09 | INFO | selection:276 | SELECCIÓN DE VARIABLES – Estado inicial: 41 features
+2026-06-13 00:11:09 | INFO | selection:277 | ============================================================
+2026-06-13 00:11:09 | INFO | selection:104 | Missing: 41 features OK, 0 eliminadas
+2026-06-13 00:11:09 | INFO | selection:86 | PSI: 4 features estables, 37 eliminadas
+2026-06-13 00:11:09 | WARNING | selection:247 | PSI: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-13 00:11:09 | INFO | selection:123 | Correlación (umbral=0.95): 4 features OK, 1 eliminadas
+2026-06-13 00:11:09 | WARNING | selection:247 | Correlación: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-13 00:11:09 | INFO | selection:183 | Univariante (umbral=0.1): 5 features OK, 0 eliminadas
+2026-06-13 00:11:14 | INFO | selection:221 | WRAPPER RFECV: 3 features seleccionadas
+2026-06-13 00:11:14 | WARNING | selection:247 | Wrapper: propuesta dejó 3 features (< 5), se retienen 5
+2026-06-13 00:11:14 | INFO | selection:379 | 
+============================================================
+2026-06-13 00:11:14 | INFO | selection:380 | RESUMEN DE SELECCIÓN DE VARIABLES:
+2026-06-13 00:11:14 | INFO | selection:382 |   0_initial: 41 features
+2026-06-13 00:11:14 | INFO | selection:382 |   1_missing: 41 features
+2026-06-13 00:11:14 | INFO | selection:382 |   2_psi: 5 features
+2026-06-13 00:11:14 | INFO | selection:382 |   3_correlation: 5 features
+2026-06-13 00:11:14 | INFO | selection:382 |   4_univariate: 5 features
+2026-06-13 00:11:14 | INFO | selection:382 |   5_wrapper: 5 features
+2026-06-13 00:11:14 | INFO | selection:383 |   → Features finales seleccionadas: 5
+2026-06-13 00:11:14 | INFO | selection:384 | ============================================================
+2026-06-13 00:11:14 | INFO | forecaster:87 | LightGBM entrenado (3 horizontes)
+2026-06-13 00:11:14 | INFO | forecaster:87 | LightGBM entrenado (3 horizontes)
+2026-06-13 00:11:14 | INFO | metrics:51 | [LGBM_todas_41f] RMSE=74,469.33  MAE=49,123.63  MAPE=3.77%  sMAPE=3.61%
+2026-06-13 00:11:14 | INFO | metrics:51 | [LGBM_seleccionadas_5f] RMSE=57,319.20  MAE=49,503.91  MAPE=3.74%  sMAPE=3.68%
+2026-06-13 00:11:14 | INFO | gap_report:113 | Costo de selección: 41 → 5 features, ΔMAPE = -0.03 pp
+2026-06-13 00:11:14 | INFO | trainer:95 | Iniciando Optuna (n_trials=30, timeout=180s, metric=rmse)…
+2026-06-13 00:11:15 | INFO | trainer:119 | Mejor RMSE: 460626.3732
+2026-06-13 00:11:15 | INFO | trainer:120 | Mejores parámetros: {'n_estimators': 638, 'learning_rate': 0.0835361075531176, 'num_leaves': 19, 'max_depth': 4, 'min_child_samples': 6, 'subsample': 0.7301321323053057, 'colsample_bytree': 0.7554709158757928, 'reg_alpha': 0.2713490317738959, 'reg_lambda': 0.8287375091519293}
+2026-06-13 00:11:16 | INFO | metrics:51 | [Naive] RMSE=139,874.73  MAE=117,930.31  MAPE=9.05%  sMAPE=8.51%
+2026-06-13 00:11:16 | INFO | metrics:51 | [MovingAverage_3M] RMSE=96,803.98  MAE=95,645.99  MAPE=7.12%  sMAPE=6.96%
+2026-06-13 00:11:16 | INFO | metrics:51 | [SeasonalNaive] RMSE=691,070.88  MAE=686,897.28  MAPE=50.47%  sMAPE=67.69%
+2026-06-13 00:11:16 | INFO | metrics:51 | [LinearTrend] RMSE=423,893.54  MAE=395,532.86  MAPE=29.87%  sMAPE=25.45%
+2026-06-13 00:11:16 | INFO | baseline:114 | 
+Mejor baseline: MovingAverage_3M (MAPE=7.12%)
+2026-06-13 00:11:16 | INFO | baseline:115 | Objetivo final: MAPE < 10%
+2026-06-13 00:11:16 | INFO | forecaster:87 | LightGBM entrenado (3 horizontes)
+2026-06-13 00:11:16 | INFO | trainer:158 | Modelo final entrenado con mejores hiperparámetros
+2026-06-13 00:11:16 | INFO | metrics:51 | [LightGBM_Optuna] RMSE=188,709.76  MAE=131,616.38  MAPE=10.14%  sMAPE=9.19%
+2026-06-13 00:11:17 | INFO | sklearn_forecaster:53 | RandomForest entrenado (3 horizontes)
+2026-06-13 00:11:17 | INFO | metrics:51 | [RandomForest] RMSE=67,885.31  MAE=64,454.92  MAPE=4.71%  sMAPE=4.70%
+2026-06-13 00:11:17 | INFO | sklearn_forecaster:53 | Ridge_Regression entrenado (3 horizontes)
+2026-06-13 00:11:17 | INFO | metrics:51 | [Ridge_Regression] RMSE=104,094.05  MAE=88,863.63  MAPE=6.32%  sMAPE=6.60%
+2026-06-13 00:11:17 | INFO | sklearn_forecaster:53 | XGBoost entrenado (3 horizontes)
+2026-06-13 00:11:17 | INFO | metrics:51 | [XGBoost] RMSE=74,765.10  MAE=59,699.75  MAPE=4.54%  sMAPE=4.67%
+2026-06-13 00:11:21 | INFO | forecaster:282 | Prophet entrenado con 17 puntos
+2026-06-13 00:11:21 | INFO | metrics:51 | [Prophet] RMSE=1,909,895.60  MAE=1,686,323.90  MAPE=121.15%  sMAPE=79.21%
+2026-06-13 00:11:21 | INFO | forecaster:363 | SARIMA entrenado: AIC=10.00
+2026-06-13 00:11:21 | INFO | metrics:51 | [SARIMA] RMSE=355,952.57  MAE=294,929.51  MAPE=22.59%  sMAPE=20.96%
+2026-06-13 00:11:21 | INFO | gap_report:74 | Resumen de gap train→backtest calculado
+2026-06-13 00:11:23 | INFO | forecaster:87 | LightGBM entrenado (3 horizontes)
+2026-06-13 00:11:23 | INFO | trainer:158 | Modelo final entrenado con mejores hiperparámetros
+2026-06-13 00:11:24 | INFO | selection_table:115 | Tabla de selección generada: 44 variables, 5 seleccionadas (importancia_seleccion suma 100.0%)
+2026-06-13 00:11:24 | INFO | selection_table:126 | Tabla de selección exportada: reports/seleccion_variables.csv
+2026-06-13 00:11:25 | INFO | helpers:52 | Modelo guardado: /sessions/bold-charming-archimedes/mnt/ProyectoG10/data/models/lgbm_forecaster.pkl
+2026-06-13 00:11:25 | INFO | helpers:52 | Modelo guardado: /sessions/bold-charming-archimedes/mnt/ProyectoG10/data/models/cleaning_pipeline.pkl
+2026-06-13 00:11:25 | INFO | helpers:52 | Modelo guardado: /sessions/bold-charming-archimedes/mnt/ProyectoG10/data/models/final_model.pkl
+2026-06-13 00:13:03 | INFO | cleaning:47 | OutlierClipper ajustado en 41 columnas
+2026-06-13 00:13:03 | INFO | cleaning:89 | NaNImputer ajustado (median) en 41 columnas
+2026-06-13 00:13:03 | INFO | cleaning:104 | NaN imputados: 79 → 0
+2026-06-13 00:13:03 | INFO | cleaning:128 | RareCategoryGrouper ajustado en 0 columnas
+2026-06-13 00:13:03 | INFO | cleaning:170 | CategoricalEncoder ajustado en 0 columnas categóricas
+2026-06-13 00:13:03 | INFO | cleaning:232 | FeatureScaler (standard) ajustado en 39 columnas
+2026-06-13 00:13:04 | INFO | cleaning:305 | Limpieza aplicada (fit+transform)
+2026-06-13 00:13:04 | INFO | monthly_agg:154 |   Split train     :  17 meses
+2026-06-13 00:13:04 | INFO | monthly_agg:154 |   Split val       :   3 meses
+2026-06-13 00:13:04 | INFO | monthly_agg:154 |   Split backtest  :   0 meses
+2026-06-13 00:13:04 | INFO | monthly_agg:154 |   Split live      :   0 meses
+2026-06-13 00:13:04 | INFO | monthly_agg:154 |   Split all       :  20 meses
+2026-06-13 00:13:04 | INFO | selection:275 | 
+============================================================
+2026-06-13 00:13:04 | INFO | selection:276 | SELECCIÓN DE VARIABLES – Estado inicial: 41 features
+2026-06-13 00:13:04 | INFO | selection:277 | ============================================================
+2026-06-13 00:13:04 | INFO | selection:104 | Missing: 41 features OK, 0 eliminadas
+2026-06-13 00:13:04 | INFO | selection:86 | PSI: 4 features estables, 37 eliminadas
+2026-06-13 00:13:04 | WARNING | selection:247 | PSI: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-13 00:13:04 | INFO | selection:123 | Correlación (umbral=0.95): 4 features OK, 1 eliminadas
+2026-06-13 00:13:04 | WARNING | selection:247 | Correlación: propuesta dejó 4 features (< 5), se retienen 5
+2026-06-13 00:13:04 | INFO | selection:183 | Univariante (umbral=0.1): 5 features OK, 0 eliminadas
+2026-06-13 00:13:08 | INFO | selection:221 | WRAPPER RFECV: 3 features seleccionadas
+2026-06-13 00:13:08 | WARNING | selection:247 | Wrapper: propuesta dejó 3 features (< 5), se retienen 5
+2026-06-13 00:13:08 | INFO | selection:379 | 
+============================================================
+2026-06-13 00:13:08 | INFO | selection:380 | RESUMEN DE SELECCIÓN DE VARIABLES:
+2026-06-13 00:13:08 | INFO | selection:382 |   0_initial: 41 features
+2026-06-13 00:13:08 | INFO | selection:382 |   1_missing: 41 features
+2026-06-13 00:13:08 | INFO | selection:382 |   2_psi: 5 features
+2026-06-13 00:13:08 | INFO | selection:382 |   3_correlation: 5 features
+2026-06-13 00:13:08 | INFO | selection:382 |   4_univariate: 5 features
+2026-06-13 00:13:08 | INFO | selection:382 |   5_wrapper: 5 features
+2026-06-13 00:13:08 | INFO | selection:383 |   → Features finales seleccionadas: 5
+2026-06-13 00:13:08 | INFO | selection:384 | ============================================================
+2026-06-13 00:13:08 | INFO | forecaster:87 | LightGBM entrenado (3 horizontes)
+2026-06-13 00:13:08 | INFO | forecaster:87 | LightGBM entrenado (3 horizontes)
+2026-06-13 00:13:08 | INFO | metrics:51 | [LGBM_todas_41f] RMSE=74,469.33  MAE=49,123.63  MAPE=3.77%  sMAPE=3.61%
+2026-06-13 00:13:08 | INFO | metrics:51 | [LGBM_seleccionadas_5f] RMSE=57,319.20  MAE=49,503.91  MAPE=3.74%  sMAPE=3.68%
+2026-06-13 00:13:08 | INFO | gap_report:113 | Costo de selección: 41 → 5 features, ΔMAPE = -0.03 pp
+2026-06-13 00:13:08 | INFO | trainer:95 | Iniciando Optuna (n_trials=30, timeout=180s, metric=rmse)…
+2026-06-13 00:13:10 | INFO | trainer:119 | Mejor RMSE: 460626.3732
+2026-06-13 00:13:10 | INFO | trainer:120 | Mejores parámetros: {'n_estimators': 638, 'learning_rate': 0.0835361075531176, 'num_leaves': 19, 'max_depth': 4, 'min_child_samples': 6, 'subsample': 0.7301321323053057, 'colsample_bytree': 0.7554709158757928, 'reg_alpha': 0.2713490317738959, 'reg_lambda': 0.8287375091519293}
+2026-06-13 00:13:10 | INFO | metrics:51 | [Naive] RMSE=139,874.73  MAE=117,930.31  MAPE=9.05%  sMAPE=8.51%
+2026-06-13 00:13:10 | INFO | metrics:51 | [MovingAverage_3M] RMSE=96,803.98  MAE=95,645.99  MAPE=7.12%  sMAPE=6.96%
+2026-06-13 00:13:10 | INFO | metrics:51 | [SeasonalNaive] RMSE=691,070.88  MAE=686,897.28  MAPE=50.47%  sMAPE=67.69%
+2026-06-13 00:13:10 | INFO | metrics:51 | [LinearTrend] RMSE=423,893.54  MAE=395,532.86  MAPE=29.87%  sMAPE=25.45%
+2026-06-13 00:13:10 | INFO | baseline:114 | 
+Mejor baseline: MovingAverage_3M (MAPE=7.12%)
+2026-06-13 00:13:10 | INFO | baseline:115 | Objetivo final: MAPE < 10%
+2026-06-13 00:13:10 | INFO | forecaster:87 | LightGBM entrenado (3 horizontes)
+2026-06-13 00:13:10 | INFO | trainer:158 | Modelo final entrenado con mejores hiperparámetros
+2026-06-13 00:13:10 | INFO | metrics:51 | [LightGBM_Optuna] RMSE=188,709.76  MAE=131,616.38  MAPE=10.14%  sMAPE=9.19%
+2026-06-13 00:13:11 | INFO | sklearn_forecaster:53 | RandomForest entrenado (3 horizontes)
+2026-06-13 00:13:11 | INFO | metrics:51 | [RandomForest] RMSE=67,885.31  MAE=64,454.92  MAPE=4.71%  sMAPE=4.70%
+2026-06-13 00:13:11 | INFO | sklearn_forecaster:53 | Ridge_Regression entrenado (3 horizontes)
+2026-06-13 00:13:11 | INFO | metrics:51 | [Ridge_Regression] RMSE=104,094.05  MAE=88,863.63  MAPE=6.32%  sMAPE=6.60%
+2026-06-13 00:13:11 | INFO | sklearn_forecaster:53 | XGBoost entrenado (3 horizontes)
+2026-06-13 00:13:11 | INFO | metrics:51 | [XGBoost] RMSE=74,765.10  MAE=59,699.75  MAPE=4.54%  sMAPE=4.67%
+2026-06-13 00:13:15 | INFO | forecaster:282 | Prophet entrenado con 17 puntos
+2026-06-13 00:13:15 | INFO | metrics:51 | [Prophet] RMSE=1,909,895.60  MAE=1,686,323.90  MAPE=121.15%  sMAPE=79.21%
+2026-06-13 00:13:15 | INFO | forecaster:363 | SARIMA entrenado: AIC=10.00
+2026-06-13 00:13:15 | INFO | metrics:51 | [SARIMA] RMSE=355,952.57  MAE=294,929.51  MAPE=22.59%  sMAPE=20.96%
+2026-06-13 00:13:15 | INFO | gap_report:74 | Resumen de gap train→backtest calculado
+2026-06-13 00:13:17 | INFO | forecaster:87 | LightGBM entrenado (3 horizontes)
+2026-06-13 00:13:17 | INFO | trainer:158 | Modelo final entrenado con mejores hiperparámetros
+2026-06-13 00:13:19 | INFO | selection_table:124 | Tabla de selección generada: 44 variables, 5 seleccionadas (importancia_seleccion suma 100.0%)
+2026-06-13 00:13:19 | INFO | selection_table:135 | Tabla de selección exportada: reports/seleccion_variables.csv
+2026-06-13 00:13:19 | INFO | helpers:52 | Modelo guardado: /sessions/bold-charming-archimedes/mnt/ProyectoG10/data/models/lgbm_forecaster.pkl
+2026-06-13 00:13:19 | INFO | helpers:52 | Modelo guardado: /sessions/bold-charming-archimedes/mnt/ProyectoG10/data/models/cleaning_pipeline.pkl
+2026-06-13 00:13:19 | INFO | helpers:52 | Modelo guardado: /sessions/bold-charming-archimedes/mnt/ProyectoG10/data/models/final_model.pkl
