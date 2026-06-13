@@ -1,6 +1,6 @@
 ﻿Nro,Dominio,Variable,flagSelected,importancia_seleccion,importancia_modelo_final
-1,Target,monthly_revenue,0,0.0,0.0
-2,Calendario / Estacionalidad,year_month,0,0.0,0.0
+1,Calendario / Estacionalidad,year_month,0,0.0,0.0
+2,Target,monthly_revenue,0,0.0,0.0
 3,Calendario / Estacionalidad,ds,0,0.0,0.0
 4,Órdenes,monthly_orders,1,50.7,25.82
 5,Clientes,monthly_customers,0,0.0,0.0
