@@ -1,0 +1,12 @@
+2026-06-13 11:55:34 | INFO | loader:42 | Dataset ya descargado, usando caché local.
+2026-06-13 11:55:34 | INFO | loader:99 |   orders              :   99,441 filas x   8 cols
+2026-06-13 11:55:35 | INFO | loader:99 |   order_items         :  112,650 filas x   7 cols
+2026-06-13 11:55:35 | INFO | loader:99 |   order_payments      :  103,886 filas x   5 cols
+2026-06-13 11:55:35 | INFO | loader:99 |   order_reviews       :   99,224 filas x   7 cols
+2026-06-13 11:55:36 | INFO | loader:99 |   customers           :   99,441 filas x   5 cols
+2026-06-13 11:55:36 | INFO | loader:99 |   products            :   32,951 filas x   9 cols
+2026-06-13 11:55:36 | INFO | loader:99 |   sellers             :    3,095 filas x   4 cols
+2026-06-13 11:55:36 | INFO | loader:99 |   category_trans      :       71 filas x   2 cols
+2026-06-13 11:55:37 | INFO | loader:99 |   geolocation         : 1,000,163 filas x   5 cols
+2026-06-13 11:55:37 | INFO | loader:101 | Total datasets cargados: 9
+2026-06-13 11:55:37 | INFO | loader:123 | Rango temporal: 2016-09-04 → 2018-10-17 (25 meses)
