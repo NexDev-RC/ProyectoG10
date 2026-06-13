@@ -101,7 +101,6 @@ class PredictPipeline:
 
         # Última fila de features para predecir desde ese punto
         X_pred = monthly_clean[self.selected_features].tail(1)
-        y_preds = self.forecaster.predict(X_pred)
 
         # Fechas futuras
         last_date = monthly_clean["ds"].max()
@@ -111,13 +110,15 @@ class PredictPipeline:
             freq="MS"
         )
 
-        # Intervalo de confianza simple (±15%)
-        ci_factor = 0.15
+        # Intervalos de confianza basados en residuos in-sample (Sprint 3),
+        # reemplaza el supuesto anterior de ±15% fijo.
+        intervals = self.forecaster.predict_with_intervals(X_pred)
+        intervals = intervals.head(horizon)
         forecast = pd.DataFrame({
             "ds":          future_dates,
-            "yhat":        y_preds,
-            "yhat_lower":  y_preds * (1 - ci_factor),
-            "yhat_upper":  y_preds * (1 + ci_factor),
+            "yhat":        intervals["yhat"].values,
+            "yhat_lower":  intervals["yhat_lower"].values,
+            "yhat_upper":  intervals["yhat_upper"].values,
             "mape_target": 10.0,
         })
 

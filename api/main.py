@@ -144,26 +144,34 @@ def get_forecast(
 
 @app.get("/api/v1/metrics", response_model=MetricsResponse, tags=["Métricas"])
 def get_metrics():
-    """Retorna las métricas técnicas del modelo en producción."""
-    try:
-        from src.utils.helpers import load_dataframe
-        metrics_path = Path(cfg["paths"]["data_models"]).parent / "metrics.parquet"
-        if metrics_path.exists():
-            df = pd.read_parquet(metrics_path)
-            return MetricsResponse(**df.iloc[-1].to_dict())
-    except Exception:
-        pass
+    """
+    Retorna las métricas técnicas (backtest) del modelo campeón actual.
 
-    # Valores placeholder si aún no hay métricas guardadas
-    return MetricsResponse(
-        model="LightGBM",
-        rmse=0.0,
-        mape=0.0,
-        mae=0.0,
-        smape=0.0,
-        meets_target=False,
-        mape_target=10.0,
-    )
+    Lee `metadata['metrics_backtest']` desde `final_model.pkl`, generado
+    en el Paso 5 del Sprint 3 (selección y exportación del modelo final).
+    """
+    mape_target = cfg["metrics"]["target_mape"]
+    try:
+        bundle = load_model("final_model", cfg)
+        metadata = bundle["metadata"]
+        metrics = metadata["metrics_backtest"]
+        mape = float(metrics["mape"])
+        return MetricsResponse(
+            model=metadata.get("model_type", cfg["models"]["final_model"]),
+            rmse=float(metrics["rmse"]),
+            mape=mape,
+            mae=float(metrics["mae"]),
+            smape=float(metrics["smape"]),
+            meets_target=mape < mape_target,
+            mape_target=mape_target,
+        )
+    except (FileNotFoundError, KeyError) as exc:
+        logger.warning(f"No se pudo cargar final_model.pkl para /metrics: {exc}")
+        raise HTTPException(
+            status_code=503,
+            detail="Métricas no disponibles. Ejecuta el Paso 5 del Sprint 3 "
+                   "(exportación de final_model.pkl) primero.",
+        )
 
 
 @app.post("/api/v1/predict", response_model=PredictResponse, tags=["Predicción"])

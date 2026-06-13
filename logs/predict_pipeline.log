@@ -1,0 +1,22 @@
+2026-06-13 15:25:57 | INFO | predict_pipeline:47 | Cargando artefactos del modelo…
+2026-06-13 15:25:58 | INFO | predict_pipeline:51 | Modelo cargado con 5 features
+2026-06-13 15:25:58 | INFO | predict_pipeline:62 | Tabla mensual cargada desde caché (20 meses)
+2026-06-13 15:26:06 | INFO | predict_pipeline:47 | Cargando artefactos del modelo…
+2026-06-13 15:26:07 | INFO | predict_pipeline:51 | Modelo cargado con 5 features
+2026-06-13 15:26:07 | INFO | predict_pipeline:62 | Tabla mensual cargada desde caché (20 meses)
+2026-06-13 15:26:18 | INFO | predict_pipeline:47 | Cargando artefactos del modelo…
+2026-06-13 15:26:19 | INFO | predict_pipeline:51 | Modelo cargado con 5 features
+2026-06-13 15:26:19 | INFO | predict_pipeline:62 | Tabla mensual cargada desde caché (20 meses)
+2026-06-13 15:26:19 | INFO | cleaning:104 | NaN imputados: 79 → 0
+2026-06-13 15:26:19 | INFO | cleaning:310 | Limpieza aplicada (transform)
+2026-06-13 15:26:19 | INFO | predict_pipeline:125 | 
+Forecast para los próximos 3 meses:
+2026-06-13 15:26:19 | INFO | predict_pipeline:127 |   Aug 2018: R$ 1,305,752.60 [1,151,797.43 – 1,459,707.78]
+2026-06-13 15:26:19 | INFO | predict_pipeline:127 |   Sep 2018: R$ 1,291,812.23 [1,017,427.57 – 1,566,196.89]
+2026-06-13 15:26:19 | INFO | predict_pipeline:127 |   Oct 2018: R$ 1,416,835.27 [1,090,412.70 – 1,743,257.83]
+2026-06-13 15:26:30 | INFO | predict_pipeline:47 | Cargando artefactos del modelo…
+2026-06-13 15:26:30 | INFO | predict_pipeline:51 | Modelo cargado con 5 features
+2026-06-13 15:26:30 | INFO | predict_pipeline:62 | Tabla mensual cargada desde caché (20 meses)
+2026-06-13 15:26:43 | INFO | predict_pipeline:47 | Cargando artefactos del modelo…
+2026-06-13 15:26:44 | INFO | predict_pipeline:51 | Modelo cargado con 5 features
+2026-06-13 15:26:44 | INFO | predict_pipeline:62 | Tabla mensual cargada desde caché (20 meses)

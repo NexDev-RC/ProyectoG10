@@ -1,9 +1,5 @@
-from src.pipeline.train_pipeline import TrainPipeline
-
-pipe = TrainPipeline()
-
-pipe.run(tune=False)
-
-print('Features seleccionadas:', pipe.selected_features)
-
-print('Métricas:', pipe.metrics_report.get('final_model'))
+# Movido a scripts/run_train_pipeline.py (este archivo se mantiene solo
+# para no romper rutas externas; no forma parte del flujo de notebooks).
+#
+# Ejecutar en su lugar:
+#   python scripts/run_train_pipeline.py
