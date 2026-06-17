@@ -1,0 +1,23 @@
+# Entornos y cachés
+.venv/
+.idea/
+.pytest_cache/
+pytest-cache-files-*/
+**/__pycache__/
+*.pyc
+
+# Datos crudos pesados (no requeridos en runtime; el modelo usa parquet/pkl)
+data/raw/
+
+# Notebooks y reportes (no necesarios en la imagen de servicio)
+notebooks/
+reports/
+
+# Logs y experimentos (se montan como volúmenes)
+logs/
+mlruns/
+
+# Git y misc
+.git/
+.gitignore
+*.md

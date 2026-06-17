@@ -26,7 +26,8 @@ from loguru import logger
 from src.utils.helpers import load_config, load_model
 from api.schemas import (
     ForecastResponse, ForecastPoint, MetricsResponse,
-    PredictRequest, PredictResponse, FeatureImportanceResponse
+    PredictRequest, PredictResponse, FeatureImportanceResponse,
+    ShapResponse,
 )
 
 
@@ -208,6 +209,43 @@ def get_feature_importance(top_n: int = Query(default=20, ge=5, le=60)):
     return FeatureImportanceResponse(
         features=fi_df["feature"].tolist(),
         importances=fi_df["importance"].tolist(),
+    )
+
+
+@app.get("/api/v1/shap", response_model=ShapResponse, tags=["Modelo"])
+def get_shap(
+    top_n: int = Query(default=20, ge=5, le=60, description="Features a retornar"),
+    horizon: int = Query(default=1, ge=1, le=12, description="Horizonte a explicar"),
+):
+    """
+    Importancia global SHAP del modelo (media del valor absoluto de SHAP).
+
+    A diferencia de `/feature-importance` (basada en splits internos de
+    LightGBM), SHAP cuantifica el aporte real de cada variable a las
+    predicciones sobre el histórico observado.
+    """
+    from src.evaluation.shap_analysis import compute_shap_values, shap_summary_df
+    from src.features.cleaning import clean_monthly_table
+
+    forecaster = get_forecaster()
+    cleaning_pipe = get_cleaning_pipe()
+    monthly = get_monthly_data()
+
+    monthly_clean, _ = clean_monthly_table(
+        monthly, cfg, fit=False, pipeline=cleaning_pipe
+    )
+    X = monthly_clean[forecaster.feature_cols_]
+
+    shap_values, feature_names, base_value = compute_shap_values(
+        forecaster, X, horizon=horizon
+    )
+    summary = shap_summary_df(shap_values, feature_names).head(top_n)
+
+    return ShapResponse(
+        horizon=horizon,
+        base_value=round(base_value, 2),
+        features=summary["feature"].tolist(),
+        mean_abs_shap=[round(v, 4) for v in summary["mean_abs_shap"].tolist()],
     )
 
 

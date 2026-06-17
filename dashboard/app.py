@@ -70,6 +70,32 @@ def run_forecast(horizon: int) -> pd.DataFrame | None:
         return None
 
 
+@st.cache_data(show_spinner="Calculando valores SHAP…")
+def compute_shap(horizon: int = 1):
+    """
+    Calcula SHAP sobre el histórico mensual limpio.
+    Cacheado porque el cálculo es costoso. Retorna (summary_df, local_df, base).
+    """
+    from src.features.cleaning import clean_monthly_table
+    from src.evaluation.shap_analysis import (
+        compute_shap_values, shap_summary_df, local_contributions_df,
+    )
+    forecaster, cleaning_pipe = load_artifacts()
+    if forecaster is None or cleaning_pipe is None:
+        return None, None, None
+
+    monthly_clean, _ = clean_monthly_table(
+        monthly, cfg, fit=False, pipeline=cleaning_pipe
+    )
+    X = monthly_clean[forecaster.feature_cols_]
+    shap_values, fnames, base = compute_shap_values(forecaster, X, horizon=horizon)
+    return (
+        shap_summary_df(shap_values, fnames),
+        local_contributions_df(shap_values, fnames, index=-1),
+        base,
+    )
+
+
 # ─────────────────────────────────────────────────────────────
 #  Sidebar
 # ─────────────────────────────────────────────────────────────
@@ -81,7 +107,8 @@ with st.sidebar:
 
     section = st.radio(
         "Sección",
-        ["📊 Overview", "🔮 Forecast", "🧩 Features", "📐 Métricas", "🎯 What-If"]
+        ["📊 Overview", "🔮 Forecast", "🧩 Features", "🔍 SHAP",
+         "📐 Métricas", "🎯 What-If"]
     )
     st.divider()
     horizon = st.slider("Horizonte de predicción (meses)", 1, 12, 3)
@@ -261,6 +288,57 @@ elif section == "🧩 Features":
 
 
 # ─────────────────────────────────────────────────────────────
+#  SECCIÓN 3b: SHAP (explicabilidad)
+# ─────────────────────────────────────────────────────────────
+elif section == "🔍 SHAP":
+    st.title("🔍 Explicabilidad del Modelo (SHAP)")
+    st.caption(
+        "SHAP cuantifica el aporte real de cada variable a las predicciones "
+        "del modelo del horizonte h=1 (predicción a 1 mes)."
+    )
+
+    if forecaster is None:
+        st.warning("El modelo no está entrenado aún.")
+    else:
+        try:
+            summary_df, local_df, base = compute_shap(horizon=1)
+        except Exception as e:
+            st.error(f"No se pudo calcular SHAP: {e}")
+            summary_df = None
+
+        if summary_df is not None:
+            st.subheader("Importancia global (media |SHAP|)")
+            top = summary_df.head(20)
+            fig = px.bar(
+                top, x="mean_abs_shap", y="feature",
+                orientation="h", color="mean_abs_shap",
+                color_continuous_scale="Purples",
+                title="Top 20 Features – Aporte SHAP promedio",
+            )
+            fig.update_layout(height=520, yaxis=dict(autorange="reversed"))
+            st.plotly_chart(fig, use_container_width=True)
+
+            st.divider()
+            st.subheader("Explicación local – último mes observado")
+            st.caption(f"Valor base (esperado) del modelo: R$ {base:,.2f}")
+            loc = local_df.head(15).copy()
+            loc["color"] = loc["shap_value"].apply(
+                lambda v: "Aumenta revenue" if v >= 0 else "Reduce revenue"
+            )
+            fig2 = px.bar(
+                loc, x="shap_value", y="feature", orientation="h",
+                color="color",
+                color_discrete_map={
+                    "Aumenta revenue": "#2ca02c",
+                    "Reduce revenue": "#d62728",
+                },
+                title="Contribución de cada feature a la predicción del último mes",
+            )
+            fig2.update_layout(height=480, yaxis=dict(autorange="reversed"))
+            st.plotly_chart(fig2, use_container_width=True)
+
+
+# ─────────────────────────────────────────────────────────────
 #  SECCIÓN 4: Métricas
 # ─────────────────────────────────────────────────────────────
 elif section == "📐 Métricas":
@@ -295,6 +373,31 @@ elif section == "📐 Métricas":
         "Valor": ["R$ 19,881,945", "93,357", "92.7%", "4.08 / 5.0", "3.0%", "0.63%"],
     }
     st.dataframe(pd.DataFrame(kpi_data), use_container_width=True, hide_index=True)
+
+    st.divider()
+    st.subheader("💰 Impacto de Negocio / ROI (Sprint 4)")
+    try:
+        from src.evaluation.metrics import compute_roi_metrics
+        fc = run_forecast(horizon)
+        roi = compute_roi_metrics(fc, monthly, cfg)
+
+        c1, c2, c3 = st.columns(3)
+        c1.metric("Ahorro de tiempo / año",
+                  f"R$ {roi['time_saving_brl_per_year']:,.0f}",
+                  f"{roi['time_saved_hours_per_year']:.0f} h/año")
+        c2.metric("Ahorro por exactitud / año",
+                  f"R$ {roi['accuracy_saving_brl_per_year']:,.0f}",
+                  f"+{roi['mape_improvement_pts']:.2f} pts MAPE")
+        c3.metric("Beneficio total estimado / año",
+                  f"R$ {roi['total_benefit_brl_per_year']:,.0f}")
+
+        st.caption(
+            f"Revenue proyectado próximos {roi['forecast_horizon_months']} meses: "
+            f"**R$ {roi['projected_revenue_horizon']:,.0f}**. "
+            "Supuestos editables en `config.yaml → business`."
+        )
+    except Exception as e:
+        st.info(f"ROI no disponible: {e}")
 
 
 # ─────────────────────────────────────────────────────────────

@@ -52,3 +52,11 @@ class PredictResponse(BaseModel):
 class FeatureImportanceResponse(BaseModel):
     features:    list[str]
     importances: list[float]
+
+
+class ShapResponse(BaseModel):
+    """Importancia global SHAP (media del valor absoluto por feature)."""
+    horizon:       int   = Field(..., description="Horizonte explicado (meses)")
+    base_value:    float = Field(..., description="Valor esperado del modelo (BRL)")
+    features:      list[str]
+    mean_abs_shap: list[float] = Field(..., description="Media |SHAP| por feature")

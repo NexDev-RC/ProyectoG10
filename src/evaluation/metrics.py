@@ -130,6 +130,92 @@ def compute_business_metrics(
     return metrics
 
 
+def _load_backtest_mape(cfg: dict) -> float:
+    """Lee el MAPE de backtest de final_model.pkl; fallback al target."""
+    try:
+        from src.utils.helpers import load_model
+        bundle = load_model("final_model", cfg)
+        return float(bundle["metadata"]["metrics_backtest"]["mape"])
+    except Exception:
+        return float(cfg["metrics"]["target_mape"])
+
+
+def compute_roi_metrics(
+    forecast_df: pd.DataFrame,
+    monthly: pd.DataFrame,
+    cfg: dict,
+    model_mape: float | None = None,
+) -> dict:
+    """
+    Estima el impacto económico del modelo (Sprint 4).
+
+    Combina tres componentes, todos parametrizados en `cfg["business"]`
+    para no hardcodear supuestos:
+
+      1. Ahorro de tiempo : horas/mes de forecast manual evitadas × costo/hora.
+      2. ROI por exactitud : reducción del error vs el baseline (Media Móvil 3M)
+         traducida a ahorro operativo (planificación de inventario/caja).
+      3. Valor proyectado  : revenue total previsto en el horizonte del forecast.
+
+    Parámetros
+    ----------
+    forecast_df : salida de PredictPipeline (cols: ds, yhat, yhat_lower, yhat_upper)
+    monthly     : tabla mensual histórica (para el revenue promedio de referencia)
+    cfg         : configuración (usa la sección `business` y `metrics.target_mape`)
+    model_mape  : MAPE de backtest del modelo (si None, usa el target como cota)
+
+    Retorna
+    -------
+    dict con KPIs de ROI / ahorro / valor proyectado.
+    """
+    biz = cfg.get("business", {})
+    hours      = float(biz.get("manual_hours_per_month", 16))
+    rate       = float(biz.get("analyst_hourly_cost_brl", 80.0))
+    err_rate   = float(biz.get("planning_error_cost_rate", 0.10))
+    baseline_mape = float(biz.get("baseline_mape", 7.12))
+
+    # MAPE real del modelo: si no se pasa, intenta leerlo del artefacto
+    # final_model.pkl; si no existe, cae al target como cota superior.
+    if model_mape is None:
+        model_mape = _load_backtest_mape(cfg)
+    model_mape = float(model_mape)
+    avg_revenue = float(monthly["monthly_revenue"].mean())
+
+    # 1. Ahorro de tiempo (anualizado)
+    time_saved_hours_year = hours * 12
+    time_saving_brl_year  = time_saved_hours_year * rate
+
+    # 2. ROI por exactitud: cada punto de MAPE evitado tiene un costo operativo
+    #    proporcional al revenue promedio mensual.
+    mape_improvement_pts = max(baseline_mape - model_mape, 0.0)
+    accuracy_saving_brl_month = (
+        avg_revenue * (mape_improvement_pts / 100.0) * err_rate
+    )
+    accuracy_saving_brl_year = accuracy_saving_brl_month * 12
+
+    # 3. Valor proyectado en el horizonte
+    projected_revenue = float(forecast_df["yhat"].sum()) if forecast_df is not None else 0.0
+    horizon = int(len(forecast_df)) if forecast_df is not None else 0
+
+    total_benefit_year = time_saving_brl_year + accuracy_saving_brl_year
+
+    metrics = {
+        "time_saved_hours_per_year":  time_saved_hours_year,
+        "time_saving_brl_per_year":   time_saving_brl_year,
+        "mape_improvement_pts":       mape_improvement_pts,
+        "accuracy_saving_brl_per_year": accuracy_saving_brl_year,
+        "total_benefit_brl_per_year": total_benefit_year,
+        "projected_revenue_horizon":  projected_revenue,
+        "forecast_horizon_months":    horizon,
+    }
+    logger.info(
+        f"ROI estimado: ahorro tiempo R$ {time_saving_brl_year:,.0f}/año + "
+        f"exactitud R$ {accuracy_saving_brl_year:,.0f}/año "
+        f"= R$ {total_benefit_year:,.0f}/año"
+    )
+    return metrics
+
+
 def format_business_report(metrics: dict) -> str:
     """Formatea el reporte de métricas de negocio como string."""
     lines = ["\n" + "="*60, " MÉTRICAS DE NEGOCIO", "="*60]

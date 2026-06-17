@@ -137,6 +137,14 @@ metrics:
     - avg_review_score
     - cancellation_rate
 
+# ─── Supuestos de negocio (Sprint 4 – ROI / ahorro de tiempo)
+#  Parámetros editables para estimar el impacto económico del modelo.
+business:
+  manual_hours_per_month:   16      # horas/mes de forecast manual evitadas
+  analyst_hourly_cost_brl:  80.0    # costo por hora del analista (BRL)
+  planning_error_cost_rate: 0.10    # fracción del error de forecast con costo operativo
+  baseline_mape:            7.12    # mejor baseline (Media Móvil 3M), Sprint 1
+
 # ─── API
 api:
   host:     "0.0.0.0"

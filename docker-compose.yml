@@ -1,0 +1,46 @@
+# ──────────────────────────────────────────────────────────────
+#  Olist Revenue Forecast – Orquestación de servicios (Sprint 4)
+#
+#  Levantar todo:   docker compose up --build
+#    - API REST   → http://localhost:8000/docs
+#    - Dashboard  → http://localhost:8501
+#    - MLflow UI  → http://localhost:5000
+# ──────────────────────────────────────────────────────────────
+services:
+  api:
+    build: .
+    image: olist-forecast:latest
+    container_name: olist-api
+    command: uvicorn api.main:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data/models:/app/data/models:ro
+      - ./data/processed:/app/data/processed:ro
+      - ./logs:/app/logs
+    restart: unless-stopped
+
+  dashboard:
+    build: .
+    image: olist-forecast:latest
+    container_name: olist-dashboard
+    command: streamlit run dashboard/app.py --server.port 8501 --server.address 0.0.0.0
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data/models:/app/data/models:ro
+      - ./data/processed:/app/data/processed:ro
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  mlflow:
+    build: .
+    image: olist-forecast:latest
+    container_name: olist-mlflow
+    command: mlflow ui --host 0.0.0.0 --port 5000 --backend-store-uri /app/mlruns
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlruns:/app/mlruns
+    restart: unless-stopped

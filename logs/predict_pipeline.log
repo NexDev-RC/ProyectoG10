@@ -20,3 +20,31 @@ Forecast para los próximos 3 meses:
 2026-06-13 15:26:43 | INFO | predict_pipeline:47 | Cargando artefactos del modelo…
 2026-06-13 15:26:44 | INFO | predict_pipeline:51 | Modelo cargado con 5 features
 2026-06-13 15:26:44 | INFO | predict_pipeline:62 | Tabla mensual cargada desde caché (20 meses)
+2026-06-17 00:32:49 | INFO | predict_pipeline:47 | Cargando artefactos del modelo…
+2026-06-17 00:32:49 | INFO | predict_pipeline:51 | Modelo cargado con 5 features
+2026-06-17 00:32:49 | INFO | predict_pipeline:62 | Tabla mensual cargada desde caché (20 meses)
+2026-06-17 00:32:49 | INFO | cleaning:104 | NaN imputados: 79 → 0
+2026-06-17 00:32:49 | INFO | cleaning:310 | Limpieza aplicada (transform)
+2026-06-17 00:32:51 | INFO | predict_pipeline:125 | 
+Forecast para los próximos 3 meses:
+2026-06-17 00:32:51 | INFO | predict_pipeline:127 |   Aug 2018: R$ 1,305,752.60 [1,151,797.43 – 1,459,707.78]
+2026-06-17 00:32:51 | INFO | predict_pipeline:127 |   Sep 2018: R$ 1,291,812.23 [1,017,427.57 – 1,566,196.89]
+2026-06-17 00:32:51 | INFO | predict_pipeline:127 |   Oct 2018: R$ 1,416,835.27 [1,090,412.70 – 1,743,257.83]
+2026-06-17 00:32:51 | INFO | metrics:198 | ROI estimado: ahorro tiempo R$ 15,360/año + exactitud R$ 0/año = R$ 15,360/año
+2026-06-17 00:38:00 | INFO | predict_pipeline:47 | Cargando artefactos del modelo…
+2026-06-17 00:38:01 | INFO | predict_pipeline:51 | Modelo cargado con 5 features
+2026-06-17 00:38:01 | INFO | predict_pipeline:62 | Tabla mensual cargada desde caché (20 meses)
+2026-06-17 00:38:01 | INFO | cleaning:104 | NaN imputados: 79 → 0
+2026-06-17 00:38:01 | INFO | cleaning:310 | Limpieza aplicada (transform)
+2026-06-17 00:38:02 | INFO | predict_pipeline:125 | 
+Forecast para los próximos 3 meses:
+2026-06-17 00:38:02 | INFO | predict_pipeline:127 |   Aug 2018: R$ 1,305,752.60 [1,151,797.43 – 1,459,707.78]
+2026-06-17 00:38:02 | INFO | predict_pipeline:127 |   Sep 2018: R$ 1,291,812.23 [1,017,427.57 – 1,566,196.89]
+2026-06-17 00:38:02 | INFO | predict_pipeline:127 |   Oct 2018: R$ 1,416,835.27 [1,090,412.70 – 1,743,257.83]
+2026-06-17 00:38:03 | INFO | cleaning:104 | NaN imputados: 79 → 0
+2026-06-17 00:38:03 | INFO | cleaning:310 | Limpieza aplicada (transform)
+2026-06-17 00:38:05 | INFO | shap_analysis:64 | SHAP TreeExplainer creado para horizonte h=1
+2026-06-17 00:38:05 | INFO | shap_analysis:112 | SHAP calculado: 20 obs × 5 features (base=930,410.43)
+2026-06-17 00:38:05 | INFO | shap_analysis:64 | SHAP TreeExplainer creado para horizonte h=1
+2026-06-17 00:38:05 | INFO | shap_analysis:207 | Gráficos SHAP guardados: ['reports\\sprint4_shap_summary.png', 'reports\\sprint4_shap_bar.png']
+2026-06-17 00:38:06 | INFO | metrics:211 | ROI estimado: ahorro tiempo R$ 15,360/año + exactitud R$ 0/año = R$ 15,360/año

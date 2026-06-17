@@ -324,6 +324,63 @@ class TrainPipeline:
         print(format_business_report(biz_metrics))
 
     # ──────────────────────────────────────────────
+    #  Registro en MLflow (Sprint 4)
+    # ──────────────────────────────────────────────
+    def _log_mlflow(self):
+        """
+        Registra el run actual en MLflow: tags, params, métricas y artefactos
+        (modelo, pipeline de limpieza, features seleccionadas). Tolerante a
+        fallos: cualquier error de logging se reporta sin abortar el pipeline.
+        """
+        try:
+            # Tags de trazabilidad / gobernanza
+            mlflow.set_tags({
+                "project":     self.cfg["project"]["name"],
+                "version":     self.cfg["project"]["version"],
+                "model_type":  self.cfg["models"]["final_model"],
+                "granularity": self.cfg["project"]["granularity"],
+            })
+
+            # Params: hiperparámetros + nº de features
+            mlflow.log_params(self.best_params)
+            mlflow.log_param("n_selected_features", len(self.selected_features))
+
+            # Métricas técnicas del modelo final (backtest)
+            if "final_model" in self.metrics_report:
+                fm = self.metrics_report["final_model"]
+                mlflow.log_metrics({
+                    "rmse":  float(fm["rmse"]),
+                    "mape":  float(fm["mape"]),
+                    "mae":   float(fm["mae"]),
+                    "smape": float(fm.get("smape", 0.0)),
+                })
+
+            # Métricas de negocio (las numéricas)
+            biz = self.metrics_report.get("business", {})
+            biz_numeric = {
+                f"biz_{k}": float(v)
+                for k, v in biz.items() if isinstance(v, (int, float))
+            }
+            if biz_numeric:
+                mlflow.log_metrics(biz_numeric)
+
+            # Features seleccionadas como artefacto de texto
+            mlflow.log_text(
+                "\n".join(self.selected_features), "selected_features.txt"
+            )
+
+            # Artefactos serializados (modelo + pipeline de limpieza)
+            models_dir = Path(self.cfg["paths"]["data_models"])
+            for name in ("lgbm_forecaster.pkl", "cleaning_pipeline.pkl"):
+                p = models_dir / name
+                if p.exists():
+                    mlflow.log_artifact(str(p), artifact_path="models")
+
+            logger.info("Run registrado en MLflow (params, métricas, artefactos)")
+        except Exception as exc:  # pragma: no cover - logging defensivo
+            logger.warning(f"No se pudo registrar en MLflow: {exc}")
+
+    # ──────────────────────────────────────────────
     #  Pipeline completo
     # ──────────────────────────────────────────────
     def run(self, tune: bool = True, track_mlflow: bool = False):
@@ -336,6 +393,8 @@ class TrainPipeline:
         track_mlflow : si True, registra métricas en MLflow
         """
         if track_mlflow:
+            mlflow_uri = Path(self.cfg["paths"].get("mlflow_uri", "mlruns/")).resolve()
+            mlflow.set_tracking_uri(mlflow_uri.as_uri())
             mlflow.set_experiment(self.cfg["project"]["name"])
             mlflow.start_run()
 
@@ -361,14 +420,8 @@ class TrainPipeline:
             self.step_train_final()
             self.step_business_metrics()
 
-            if track_mlflow and "final_model" in self.metrics_report:
-                fm = self.metrics_report["final_model"]
-                mlflow.log_metrics({
-                    "rmse": fm["rmse"],
-                    "mape": fm["mape"],
-                    "mae":  fm["mae"],
-                })
-                mlflow.log_params(self.best_params)
+            if track_mlflow:
+                self._log_mlflow()
 
             logger.info("\n Pipeline de entrenamiento completado exitosamente.")
             return self
