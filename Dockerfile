@@ -31,7 +31,8 @@ COPY config/    ./config/
 COPY data/models/    ./data/models/
 COPY data/processed/ ./data/processed/
 COPY ./data /app/data
-COPY ./mlruns /app/mlruns
+#COPY ./mlruns /app/mlruns
+RUN mkdir -p /app/mlruns
 
 # Puertos: API (8000), Dashboard (8501)
 EXPOSE 8000 8501
