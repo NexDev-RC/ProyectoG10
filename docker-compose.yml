@@ -38,9 +38,19 @@ services:
     build: .
     image: olist-forecast:latest
     container_name: olist-mlflow
-    command: mlflow ui --host 0.0.0.0 --port 5000 --backend-store-uri /app/mlruns
+    # MLflow 3.x rechaza el file-store por defecto; MLFLOW_ALLOW_FILE_STORE=true
+    # mantiene compatible el backend basado en carpeta `mlruns/` (sin DB).
+    environment:
+      MLFLOW_ALLOW_FILE_STORE: "true"
+    command: mlflow server --host 0.0.0.0 --port 5000 --backend-store-uri /app/mlruns
     ports:
       - "5000:5000"
     volumes:
       - ./mlruns:/app/mlruns
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
     restart: unless-stopped

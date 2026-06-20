@@ -1,0 +1,9 @@
+artifact_location: file:///D:/2026/maestria/mod13/dev/ProyectoG10/mlruns/538170148417563770
+creation_time: 1781918998024
+effective_trace_archival_retention: null
+experiment_id: '538170148417563770'
+last_update_time: 1781918998024
+lifecycle_stage: active
+name: olist_revenue_forecast
+trace_location: null
+workspace: default

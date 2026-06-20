@@ -111,8 +111,10 @@ with st.sidebar:
          "📐 Métricas", "🎯 What-If"]
     )
     st.divider()
-    horizon = st.slider("Horizonte de predicción (meses)", 1, 12, 3)
-    st.caption(f"Modelo: **{cfg['models']['final_model']}**")
+    # El modelo es direct multi-step: solo predice hasta `horizon_months` meses.
+    max_h = int(cfg["project"].get("horizon_months", 3))
+    horizon = st.slider("Horizonte de predicción (meses)", 1, max_h, max_h)
+    st.caption(f"Modelo: **{cfg['models']['final_model']}** (máx. {max_h} meses)")
     st.caption(f"MAPE objetivo: **< {cfg['metrics']['target_mape']}%**")
 
 

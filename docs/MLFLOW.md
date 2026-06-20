@@ -34,6 +34,14 @@ Implementado en `TrainPipeline._log_mlflow()` (`src/pipeline/train_pipeline.py`)
 
 El backend de tracking apunta a `paths.mlflow_uri` del `config.yaml` (`mlruns/`).
 
+> **Nota MLflow 3.x:** desde MLflow 3 el backend basado en carpeta (`mlruns/`)
+> está en *maintenance mode* y el servidor/cliente lanza una excepción salvo que
+> se active `MLFLOW_ALLOW_FILE_STORE=true`. El proyecto ya lo activa
+> automáticamente: en el contenedor (variable de entorno en `docker-compose.yml`)
+> y en el cliente (`TrainPipeline.run` hace `os.environ.setdefault`). Si en el
+> futuro se quiere un backend de base de datos, usar
+> `--backend-store-uri sqlite:///mlflow.db`.
+
 ## Cómo ejecutarlo
 
 ```bash

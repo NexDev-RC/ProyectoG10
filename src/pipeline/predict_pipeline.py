@@ -99,21 +99,35 @@ class PredictPipeline:
         if horizon is None:
             horizon = self.cfg["project"]["horizon_months"]
 
+        # El modelo es direct multi-step: tiene un sub-modelo por horizonte y
+        # solo puede predecir hasta `forecaster.horizon` meses. Si se solicita
+        # más, se limita a esa capacidad (evita el desajuste de longitudes que
+        # provocaba "All arrays must be of the same length").
+        model_horizon = getattr(self.forecaster, "horizon", horizon)
+        if horizon > model_horizon:
+            logger.warning(
+                f"Horizonte solicitado ({horizon}) excede la capacidad del "
+                f"modelo ({model_horizon}). Se limita a {model_horizon} meses."
+            )
+
         # Última fila de features para predecir desde ese punto
         X_pred = monthly_clean[self.selected_features].tail(1)
-
-        # Fechas futuras
-        last_date = monthly_clean["ds"].max()
-        future_dates = pd.date_range(
-            start=last_date + pd.DateOffset(months=1),
-            periods=horizon,
-            freq="MS"
-        )
 
         # Intervalos de confianza basados en residuos in-sample (Sprint 3),
         # reemplaza el supuesto anterior de ±15% fijo.
         intervals = self.forecaster.predict_with_intervals(X_pred)
-        intervals = intervals.head(horizon)
+        intervals = intervals.head(horizon).reset_index(drop=True)
+
+        # El nº de meses efectivo es el de filas realmente devueltas: garantiza
+        # que `future_dates` e `intervals` tengan la misma longitud.
+        eff_horizon = len(intervals)
+        last_date = monthly_clean["ds"].max()
+        future_dates = pd.date_range(
+            start=last_date + pd.DateOffset(months=1),
+            periods=eff_horizon,
+            freq="MS"
+        )
+
         forecast = pd.DataFrame({
             "ds":          future_dates,
             "yhat":        intervals["yhat"].values,
@@ -122,7 +136,7 @@ class PredictPipeline:
             "mape_target": 10.0,
         })
 
-        logger.info(f"\nForecast para los próximos {horizon} meses:")
+        logger.info(f"\nForecast para los próximos {eff_horizon} meses:")
         for _, row in forecast.iterrows():
             logger.info(
                 f"  {row['ds'].strftime('%b %Y')}: "

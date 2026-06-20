@@ -16,6 +16,7 @@ Uso:
     pipe = TrainPipeline()
     pipe.run()
 """
+import os
 import mlflow
 import pandas as pd
 from loguru import logger
@@ -393,6 +394,8 @@ class TrainPipeline:
         track_mlflow : si True, registra métricas en MLflow
         """
         if track_mlflow:
+            # MLflow 3.x exige opt-in para el backend basado en carpeta.
+            os.environ.setdefault("MLFLOW_ALLOW_FILE_STORE", "true")
             mlflow_uri = Path(self.cfg["paths"].get("mlflow_uri", "mlruns/")).resolve()
             mlflow.set_tracking_uri(mlflow_uri.as_uri())
             mlflow.set_experiment(self.cfg["project"]["name"])
@@ -409,12 +412,17 @@ class TrainPipeline:
             if tune:
                 self.step_tune()
             else:
-                # Hiperparámetros por defecto si no se tunea
+                # Hiperparámetros por defecto si no se tunea.
+                # `min_child_samples` bajo es CLAVE: el dataset mensual es muy
+                # pequeño (~31 filas); con el default de LightGBM (20) los
+                # árboles no logran dividir y el modelo degenera a una constante
+                # (importancias y SHAP = 0, gráficas en blanco).
                 self.best_params = {
                     "n_estimators": 300,
                     "learning_rate": 0.05,
                     "num_leaves": 31,
                     "max_depth": 5,
+                    "min_child_samples": 5,
                 }
 
             self.step_train_final()

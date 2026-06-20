@@ -137,7 +137,7 @@ def get_forecast(
 
     return ForecastResponse(
         model=cfg["models"]["final_model"],
-        horizon=horizon,
+        horizon=len(points),   # horizonte efectivo (limitado por el modelo)
         forecast=points,
         currency="BRL",
     )
